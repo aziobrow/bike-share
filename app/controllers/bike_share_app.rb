@@ -7,6 +7,7 @@ class BikeShareApp < Sinatra::Base
   end
 
   get "/stations" do
+    @stations = Station.all
     erb :index
   end
 
@@ -15,14 +16,17 @@ class BikeShareApp < Sinatra::Base
   end
 
   post "/stations" do
+    Station.create(params[:station])
     redirect "/stations"
   end
 
   get "/stations/:id" do
+    @station = Station.find(params[:id])
     erb :show
   end
 
   get "/stations/:id/edit" do
+    @station = Station.find(params[:id])
     erb :edit
   end
 
