@@ -1,5 +1,6 @@
 class BikeShareApp < Sinatra::Base
   set :root, File.expand_path("..", __dir__)
+  set :method_override, true
 
   get "/" do
     erb :dashboard
@@ -25,7 +26,6 @@ class BikeShareApp < Sinatra::Base
     erb :edit
   end
 
-  set :method_override, true
   put "/stations/:id" do |id|
 
     redirect "/stations/#{id}"
