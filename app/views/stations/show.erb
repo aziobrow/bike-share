@@ -1,0 +1,5 @@
+<a href='/stations'>Back to All Stations</a>
+<h1>Viewing Station: <%=@station.name%></h1>
+  <p>Dock Count: <%= @station.dock_count%></p>
+  <p>City: <%= @station.city%></p>
+  <p>Date Installed: <%= @station.installation_date.strftime("%m/%d/%Y")%></p>
