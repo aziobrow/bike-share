@@ -3,3 +3,5 @@
   <p>Dock Count: <%= @station.dock_count%></p>
   <p>City: <%= @station.city%></p>
   <p>Date Installed: <%= @station.installation_date.strftime("%m/%d/%Y")%></p>
+  <a href="/stations/<%=@station.id%>/edit">Edit</a>
+  <a href="/stations/<%=@station.id%>">Delete</a>
