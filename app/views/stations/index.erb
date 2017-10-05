@@ -1,0 +1,12 @@
+<h1>Stations Index</h1>
+
+<% @stations.each do |station| %>
+  <h3><a href="/stations/<%=station.id%>"><%= station.name %></a></h3>
+  <p><%= station.city %></p>
+  <form class="" action="/stations/<%= station.id %>/edit" method="GET">
+    <input type="submit" value="Edit">
+  </form>
+  <form action="/stations/<%= station.id %>" method="POST">
+    <input type="submit" name="_method" value="Delete" />
+  </form>
+<% end %>
