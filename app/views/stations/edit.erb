@@ -1,14 +1,10 @@
-<form action="/stations/<%=@station.id%>" method="post">
+<form action="/stations/<%=@station.id%>" method="POST">
   <h1>Edit Station Details </h1>
-  <input type="hidden" name="_method" value="PUT">
-  <h3>Current Name: <%=@station.name%></h3>
   Enter New Station Name: <input type='text' name='station[name]' value="<%=@station.name%>"/><br><br><br>
-  <h3>Current City: <%=@station.city%></h3>
   Enter New City: <input type='text' name='station[city]' value="<%=@station.city%>"/><br><br><br>
-  <h3>Current Number of Bike Docks: <%=@station.dock_count%></h3>
   Enter New Dock Count: <input type='text' name='station[dock_count]'value="<%=@station.dock_count%>"/><br><br><br>
-  <h3>Current Date of Installation: <%=@station.installation_date.strftime("%m/%d/%Y")%></h3>
   Enter New Installation Date: <input type='text' name='station[installation_date]' value="<%=@station.installation_date%>"/><br><br><br>
+  <input type="hidden" name="_method" value="PUT">
   <input type='submit' value='Save Changes'/><br><br>
   <a href="/stations/<%=@station.id%>">Back to Station</a>
 </form>
