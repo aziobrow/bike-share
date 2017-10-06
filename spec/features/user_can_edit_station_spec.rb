@@ -5,7 +5,7 @@ describe "when a user visits '/stations/:id/edit'" do
     @station = Station.create(installation_date: date, dock_count: 4, name: 'Humberto', city: 'Place')
   end
 
-  it "they see an edit form" do
+  it "renders an edit form" do
 
     visit "/stations/#{@station.id}/edit"
 
@@ -15,7 +15,7 @@ describe "when a user visits '/stations/:id/edit'" do
     expect(page).to have_content("Enter New Station Name:")
   end
 
-  it "they see the current values of the station in the textareas" do
+  it "renders the current values of the station in the textareas" do
 
     visit "/stations/#{@station.id}/edit"
 
