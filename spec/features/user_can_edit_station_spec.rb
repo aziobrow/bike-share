@@ -25,4 +25,12 @@ describe "when a user visits '/stations/:id/edit'" do
     expect(find_field('station[installation_date]').value).to include('2017')
   end
 
+  it "takes the user back to the station show page" do
+
+    visit "/stations/#{@station.id}/edit"
+    click_button('Save Changes')
+
+    expect(current_path).to eq("/stations/#{@station.id}")
+  end
+
 end
