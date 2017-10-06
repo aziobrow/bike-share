@@ -19,9 +19,10 @@ describe "when a user visits '/stations/:id/edit'" do
     visit "/stations/#{station.id}/edit"
 
     expect(find_field('station[name]').value).to eq('Humberto')
-    # expect(page).to have_content("Place")
-    # expect(page).to have_content("4")
-    # expect(page).to have_content(date)
+    expect(find_field('station[dock_count]').value).to eq('4')
+    expect(find_field('station[city]').value).to eq('Place')
+    expect(find_field('station[installation_date]').value).to include('2017')
+
   end
 
 
