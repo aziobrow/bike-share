@@ -2,7 +2,7 @@
 <h1>Viewing Station: <%=@station.name%></h1>
   <p>Dock Count: <%= @station.dock_count%></p>
   <p>City: <%= @station.city%></p>
-  <p>Date Installed: <%= @station.installation_date.strftime("%m/%d/%Y")%></p>
+  <p>Date Installed: <%= @station.installation_date%></p>
   <form class="" action="/stations/<%= @station.id %>/edit" method="GET">
     <input type="submit" name="_method" value="Edit">
   </form>
