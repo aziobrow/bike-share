@@ -28,11 +28,23 @@ describe "when a user visits '/stations/:id/edit'" do
   it "takes the user back to the station show page after clicking save changes" do
 
     visit "/stations/#{@station.id}/edit"
+    fill_in('station[name]', with: 'Muffins')
     click_button('Save Changes')
 
     expect(current_path).to eq("/stations/#{@station.id}")
+    expect(page).to have_content('Muffins')
+    expect(page).not_to have_content('Humberto')
   end
 
+  it "takes the user back to the station show page after clicking back to station link" do
 
+    visit "/stations/#{@station.id}/edit"
+    fill_in('station[name]', with: 'Muffins')
+    click_link('Back to Station')
+
+    expect(current_path).to eq("/stations/#{@station.id}")
+    expect(page).not_to have_content('Muffins')
+    expect(page).to have_content('Humberto')
+  end
 
 end
