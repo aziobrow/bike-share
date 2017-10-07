@@ -20,7 +20,11 @@ class Trip < ActiveRecord::Base
   end
 
   def calculate_duration
-    duration = self.end_date - self.start_date
-    (duration / 60).to_i
+    if self.duration
+      self.duration / 60
+    else
+      duration = self.end_date - self.start_date
+      duration / 60
+    end
   end
 end
