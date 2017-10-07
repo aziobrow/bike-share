@@ -1,4 +1,4 @@
-describe "when a user visits '/stations/:id/edit'" do
+describe "when a user visits a station's edit page" do
 
   before :each do
     date = DateTime.now

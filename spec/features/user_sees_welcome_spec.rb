@@ -1,4 +1,4 @@
-RSpec.describe "When a user visits '/'" do
+RSpec.describe "When a user visits the homepage" do
   it "they see a station index" do
     visit '/'
 

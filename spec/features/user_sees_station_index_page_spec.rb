@@ -1,4 +1,4 @@
-describe "when a user visits '/stations'" do
+describe "when a user visits the stations index" do
 
   it "they see station names and cities" do
     date = DateTime.now
