@@ -2,8 +2,8 @@
 <h1>Viewing Trip: <%=@trip.id%></h1>
   <p>Duration: <%= @trip.duration%></p>
   <p>Start Date: <%= @trip.start_date%></p>
-  <p>Starting Station: <%= @trip.start_station%></p>
-  <p>Ending Station: <%= @trip.duration%></p>
+  <p>Starting Station: <%= @trip.station.name%></p>
+  <p>Ending Station: <%= @trip.station.name%></p>
 
   <p>City: <%= @trip.city%></p>
   <p>Date Installed: <%= @trip.installation_date%></p>
