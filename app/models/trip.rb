@@ -1,4 +1,5 @@
 class Trip < ActiveRecord::Base
+  belongs_to :station
   validates :duration, presence: true
   validates :start_date, presence: true
   validates :start_station, presence: true
