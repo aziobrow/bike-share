@@ -1,0 +1,15 @@
+<a href='/trips'>Back to All Trips</a>
+<h1>Viewing Trip: <%=@trip.id%></h1>
+  <p>Duration: <%= @trip.duration%></p>
+  <p>Start Date: <%= @trip.start_date%></p>
+  <p>Starting Station: <%= @trip.start_station%></p>
+  <p>Ending Station: <%= @trip.duration%></p>
+
+  <p>City: <%= @trip.city%></p>
+  <p>Date Installed: <%= @trip.installation_date%></p>
+  <form class="" action="/trips/<%= @trip.id %>/edit" method="GET">
+    <input type="submit" name="_method" value="Edit">
+  </form>
+  <form action="/trips/<%= @trip.id %>" method="POST">
+    <input type="submit" name="_method" value="Delete" />
+  </form>
