@@ -1,4 +1,4 @@
-describe "when a user visits '/stations/new'" do
+describe "when a user visits the new station form page" do
 
   it "renders a new station form" do
 
