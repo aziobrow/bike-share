@@ -1,4 +1,5 @@
 class Station < ActiveRecord::Base
+  has_many :trips
   validates :name, presence: true
   validates :city, presence: true
   validates :dock_count, presence: true
