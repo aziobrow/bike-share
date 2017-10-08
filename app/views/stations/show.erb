@@ -4,7 +4,7 @@
   <p>City: <%= @station.city%></p>
   <p>Date Installed: <%= @station.installation_date%></p>
   <p>Number of Rides Started Here: <%= @station.count_rides_started_at_station %></p>
-
+  <p>Number of Rides Ended Here: <%= @station.count_rides_ended_at_station %></p>
   <form class="" action="/stations/<%= @station.id %>/edit" method="GET">
     <input type="submit" name="_method" value="Edit">
   </form>

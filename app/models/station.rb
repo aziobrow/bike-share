@@ -38,6 +38,21 @@ class Station < ActiveRecord::Base
   end
 
   def count_rides_started_at_station
-    self.trips.count
+    station_counts = Trip.group(:start_station_id).count
+    if station_counts.keys.include?(self.id)
+      station_counts[self.id]
+    else
+      0
+    end
   end
+
+  def count_rides_ended_at_station
+    station_counts = Trip.group(:end_station_id).count
+    if station_counts.keys.include?(self.id)
+      station_counts[self.id]
+    else
+      0
+    end
+  end
+  
 end
