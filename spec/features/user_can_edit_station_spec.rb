@@ -6,7 +6,6 @@ describe "when a user visits a station's edit page" do
   end
 
   it "renders an edit form" do
-
     visit "/stations/#{@station.id}/edit"
 
     expect(page).to have_content("Enter New Installation Date")
