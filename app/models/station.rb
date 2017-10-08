@@ -37,4 +37,7 @@ class Station < ActiveRecord::Base
     Station.order(:installation_date).first
   end
 
+  def count_rides_started_at_station
+    self.trips.count
+  end
 end

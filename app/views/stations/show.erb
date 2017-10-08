@@ -3,6 +3,8 @@
   <p>Dock Count: <%= @station.dock_count%></p>
   <p>City: <%= @station.city%></p>
   <p>Date Installed: <%= @station.installation_date%></p>
+  <p>Number of Rides Started Here: <%= @station.count_rides_started_at_station %></p>
+
   <form class="" action="/stations/<%= @station.id %>/edit" method="GET">
     <input type="submit" name="_method" value="Edit">
   </form>

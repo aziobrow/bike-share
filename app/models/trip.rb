@@ -1,4 +1,3 @@
-require 'pry'
 class Trip < ActiveRecord::Base
   belongs_to :station
   validates :duration, presence: true
@@ -85,5 +84,6 @@ class Trip < ActiveRecord::Base
   def display_date(date)
     date.strftime("%m/%d/%Y")
   end
+
 
 end
