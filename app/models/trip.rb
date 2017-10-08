@@ -27,4 +27,63 @@ class Trip < ActiveRecord::Base
       duration / 60
     end
   end
+
+  def average_duration_of_a_ride
+    Trip.average(:duration).round
+  end
+
+  def longest_ride
+    Trip.maximum(:duration)
+  end
+
+  def shortest_ride
+    Trip.minimum(:duration)
+  end
+
+  def most_frequent_starting_station
+    start_station_max = Trip.group(:start_station_id).order("count_id DESC").limit(1).count(:id)
+    Station.find(start_station_max.keys.first).name
+  end
+
+  def most_frequent_ending_station
+    start_station_min = Trip.group(:start_station_id).order("count_id ASC").limit(1).count(:id)
+    Station.find(start_station_min.keys.first).name
+  end
+
+  def most_ridden_bike_with_total_number_of_rides
+    Trip.group(:bike_id).order("count_id DESC").limit(1).count(:id)
+  end
+
+  def least_ridden_bike_with_total_number_of_rides
+    Trip.group(:bike_id).order("count_id ASC").limit(1).count(:id)
+  end
+
+  def subscription_breakdown
+    Trip.group(:subscription_type).count
+  end
+
+  def customer_percentage
+    total = Trip.count
+    customer = Trip.group(:subscription_type).count.values.first
+    (customer.to_f / total * 100).round
+  end
+
+  def subscriber_percentage
+    total = Trip.count
+    subscriber = Trip.group(:subscription_type).count.values.last
+    (subscriber.to_f / total * 100).round
+  end
+
+  def date_with_most_trips
+    Trip.group(:end_date).order("count_id DESC").limit(1).count(:id)
+  end
+
+  def date_with_least_trips
+    Trip.group(:end_date).order("count_id ASC").limit(1).count(:id)
+  end
+
+  def display_date(date)
+    date.strftime("%m/%d/%Y")
+  end
+
 end

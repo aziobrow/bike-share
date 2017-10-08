@@ -1,0 +1,26 @@
+<head>
+  <link rel='stylesheet' href='/stylesheets/main.css'>
+</head>
+
+<body>
+  <ul class='nav-bar'>
+    <li class='nav-bar-item'><a href="/stations">stations</a></li>
+    <li class='nav-bar-item'><a href="/trips">trips</a></li>
+    <li class='nav-bar-item'><a href="/conditions">weather conditions</a></li>
+  </ul>
+
+  <h1>Trips Overview</h1>
+  <p>Average Duration of Ride: <%= @trips.first.average_duration_of_a_ride %></p>
+  <p>Longest Ride: <%= @trips.first.longest_ride %></p>
+  <p>Shortest Ride: <%= @trips.first.shortest_ride %></p>
+  <p>Most Frequent Starting Station: <%= @trips.first.most_frequent_starting_station %></p>
+  <p>Most Frequent Ending Station: <%= @trips.first.most_frequent_ending_station %></p>
+  <p>Most Ridden Bike: <%= @trips.first.most_ridden_bike_with_total_number_of_rides.keys.first %> Number of Rides: <%= @trips.first.most_ridden_bike_with_total_number_of_rides.values.first %></p>
+  <p>Least Ridden Bike: <%= @trips.first.least_ridden_bike_with_total_number_of_rides.keys.first %> Number of Rides: <%= @trips.first.least_ridden_bike_with_total_number_of_rides.values.first %></p>
+  <p>Users Subscribed: <%= @trips.first.subscription_breakdown.values.last %> Percentage: <%= @trips.first.subscriber_percentage %>%</p>
+  <p>Users Not Subscribed: <%= @trips.first.subscription_breakdown.values.first %> Percentage: <%= @trips.first.customer_percentage %>%</p>
+  <p>Date With Most Trips:  <%= @trips.first.display_date(@trips.first.date_with_most_trips.keys.first) %> Number of Trips: <%= @trips.first.date_with_most_trips.values.first %></p>
+  <p>Date With Least Trips:  <%= @trips.first.display_date(@trips.first.date_with_least_trips.keys.first) %> Number of Trips: <%= @trips.first.date_with_least_trips.values.first %></p>
+
+
+</body>
