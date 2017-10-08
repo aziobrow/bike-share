@@ -71,4 +71,38 @@ RSpec.describe Trip do
       expect(trip).to be_valid
     end
   end
+
+  describe 'instance methods' do
+    before :each do
+      date1 = DateTime.now
+      date2 = DateTime.new(2008,2,3,4,5)
+      @trip_1 = Trip.create(duration: 12, start_date: date2, start_station_id: 1, end_date: date1, end_station_id: 2, bike_id: 3, subscription_type: 'Subscriber', zip_code: '12345')
+      @trip_2 = Trip.create(duration: 120, start_date: date2, start_station_id: 2, end_date: date1, end_station_id: 2, bike_id: 4, subscription_type: 'Subscriber', zip_code: '12345')
+      @station_1 = Station.create(installation_date: date1, dock_count: 4, name: 'Ralph', city: 'Place')
+      @station_2 = Station.create(installation_date: date2, dock_count: 10, name: 'Humberto', city: 'Different Place')
+    end
+
+    it '#starting_station_name' do
+      expect(@trip_2.starting_station_name).to eq('Humberto')
+    end
+
+    it '#ending_station_name' do
+      expect(@trip_1.ending_station_name).to eq('Humberto')
+      expect(@trip_2.ending_station_name).to eq('Humberto')
+    end
+
+    it '#calulate_duration when duration exists' do
+      expect(@trip_1.calculate_duration).to eq(0)
+      expect(@trip_2.calculate_duration).to eq(2)
+    end
+
+    it '#calulate_duration from start and end date' do
+      date1 = DateTime.now
+      date2 = DateTime.now - 120
+      @trip_1 = Trip.create(start_date: date2, start_station_id: 1, end_date: date1, end_station_id: 2, bike_id: 3, subscription_type: 'Subscriber', zip_code: '12345')
+
+      expect(@trip_1.calculate_duration).to eq(2)
+    end
+
+  end
 end
