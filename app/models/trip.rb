@@ -49,6 +49,32 @@ class Trip < ActiveRecord::Base
     Station.find(start_station_min.keys.first).name
   end
 
+  def years_with_rides
+    year_dates = Trip.group("DATE_TRUNC('year', start_date)").count.keys
+    years = year_dates.map do |date|
+      date.strftime("%Y")
+    end
+  end
+
+  def number_of_rides_per_year
+    years = years_with_rides
+    yearly_rides = Hash.new
+    yearly_subtotals = years.map do |year|
+      yearly_rides[year] = Trip.where('extract(year from start_date) = ?', year).count
+    end
+    yearly_rides
+  end
+
+  def display_monthly_rides
+    years = years_with_rides
+    rides_per_month = Hash.new
+    monthly_rides = years.each do |year|
+      ride_count = Trip.where('extract(year from start_date) = ?', year).group("DATE_TRUNC('month', start_date)").count
+      rides_per_month[self.start_date.strftime("%B")] = ride_count.values.first
+    end
+    rides_per_month
+  end
+
   def most_ridden_bike_with_total_number_of_rides
     Trip.group(:bike_id).order("count_id DESC").limit(1).count(:id)
   end

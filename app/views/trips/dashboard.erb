@@ -15,6 +15,12 @@
   <p>Shortest Ride: <%= @trips.first.shortest_ride %></p>
   <p>Most Frequent Starting Station: <%= @trips.first.most_frequent_starting_station %></p>
   <p>Most Frequent Ending Station: <%= @trips.first.most_frequent_ending_station %></p>
+  <p>Rides Per Year: <% @trips.first.number_of_rides_per_year.each do |year, year_rides|  %>
+    <%= year%>:<%=year_rides%>
+    <%end%></p>
+  <p>Rides Per Month: <% @trips.first.display_monthly_rides.each do |month, month_rides|  %>
+    <%= month%>:<%=month_rides%>
+    <%end%></p>
   <p>Most Ridden Bike: <%= @trips.first.most_ridden_bike_with_total_number_of_rides.keys.first %> Number of Rides: <%= @trips.first.most_ridden_bike_with_total_number_of_rides.values.first %></p>
   <p>Least Ridden Bike: <%= @trips.first.least_ridden_bike_with_total_number_of_rides.keys.first %> Number of Rides: <%= @trips.first.least_ridden_bike_with_total_number_of_rides.values.first %></p>
   <p>Users Subscribed: <%= @trips.first.subscription_breakdown.values.last %> Percentage: <%= @trips.first.subscriber_percentage %>%</p>

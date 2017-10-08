@@ -54,5 +54,27 @@ class Station < ActiveRecord::Base
       0
     end
   end
-  
+
+  def most_frequent_destination
+    end_station_id = Trip.where(start_station_id: self.id).group(:end_station_id).order("count_id DESC").limit(1).count(:id).keys.first
+    Station.find(end_station_id).name
+  end
+
+  def most_frequent_origin
+    start_station_id = Trip.where(end_station_id: self.id).group(:start_station_id).order("count_id DESC").limit(1).count(:id).keys.first
+    Station.find(start_station_id).name
+  end
+
+  def date_with_most_trips
+    Trip.where(start_station_id: self.id).group(:start_date).order("count_id DESC").limit(1).count(:id).keys.first
+  end
+
+  def most_frequent_starting_zip_code
+    Trip.where(start_station_id: self.id).group(:zip_code).order("count_id DESC").limit(1).count(:id).keys.first
+  end
+
+  def most_frequent_starting_bike
+    Trip.where(start_station_id: self.id).group(:bike_id).order("count_id DESC").limit(1).count(:id).keys.first
+  end
+
 end
