@@ -78,15 +78,11 @@ RSpec.describe Trip do
       date2 = DateTime.new(2008,2,3,4,5)
       @trip_1 = Trip.create(duration: 12, start_date: date2, start_station_id: 1, end_date: date1, end_station_id: 2, bike_id: 3, subscription_type: 'Subscriber', zip_code: '12345')
       @trip_2 = Trip.create(duration: 120, start_date: date2, start_station_id: 2, end_date: date1, end_station_id: 2, bike_id: 4, subscription_type: 'Subscriber', zip_code: '12345')
-      date_1 = DateTime.now
-      date_2 = DateTime.new(2001,4,5,6,7)
-      @station_1 = Station.create(installation_date: date_1, dock_count: 4, name: 'Ralph', city: 'Place')
-      @station_2 = Station.create(installation_date: date_2, dock_count: 10, name: 'Humberto', city: 'Different Place')
-
+      @station_1 = Station.create(installation_date: date1, dock_count: 4, name: 'Ralph', city: 'Place')
+      @station_2 = Station.create(installation_date: date2, dock_count: 10, name: 'Humberto', city: 'Different Place')
     end
 
     it '#starting_station_name' do
-      expect(@trip_1.starting_station_name).to eq('Ralph')
       expect(@trip_2.starting_station_name).to eq('Humberto')
     end
 
