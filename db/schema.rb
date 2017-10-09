@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20171009133241) do
 
   # These are extensions that must be enabled in order to support this database
@@ -31,6 +32,7 @@ ActiveRecord::Schema.define(version: 20171009133241) do
     t.integer "dock_count"
     t.text "city"
     t.datetime "installation_date"
+    t.integer "station_id"
   end
 
   create_table "trips", force: :cascade do |t|

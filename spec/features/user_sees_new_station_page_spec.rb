@@ -18,7 +18,7 @@ describe "when a user visits the new station form page" do
     fill_in('station[name]', with: 'Muffins')
     fill_in('station[city]', with: 'Blueberry')
     fill_in('station[dock_count]', with: '4')
-    fill_in('station[installation_date]', with: '3/29/2009')
+    fill_in('station[installation_date]', with: '2013-10-12')
     click_button('Create Station')
 
     expect(current_path).to eq("/stations")

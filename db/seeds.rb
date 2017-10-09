@@ -10,7 +10,8 @@ stations.each do |station|
   Station.create!(name:             station[:name],
                  dock_count:        station[:dock_count].to_i,
                  installation_date: Date.strptime(station[:installation_date], "%m/%d/%Y"),
-                 city:              station[:city])
+                 city:              station[:city],
+                 station_id:        station[:id])
 end
 
 trips = (CSV.open'db/fixtures/trip_fixture.csv', headers: true, header_converters: :symbol)
