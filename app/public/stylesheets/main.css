@@ -2,13 +2,6 @@ body {
   padding: 0 0 0 0;
   margin: 0 0 0 0;
 }
-/*
-.bg {
-  background-image: url('/images/pexels-photo-248762.jpeg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}*/
 
 main {
   font-family: monospace;
@@ -22,10 +15,6 @@ h1 {
   text-align: center;
   padding: 0;
   border: 20;
-}
-
-h1:hover {
-  color: rgb(60, 150, 176);
 }
 
 ul.nav-bar {
@@ -59,8 +48,4 @@ img.main-img {
   width: 50%;
   height: auto;
   margin: auto;
-}
-
-img.main-img:hover {
-  opacity: 0.6;
 }
