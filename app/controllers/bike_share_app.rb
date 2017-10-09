@@ -1,5 +1,3 @@
-require 'pry'
-
 class BikeShareApp < Sinatra::Base
   set :root, File.expand_path("..", __dir__)
   set :method_override, true
@@ -34,7 +32,7 @@ class BikeShareApp < Sinatra::Base
 
   get "/stations/:id/edit" do
     @station = Station.find(params[:id])
-    erb :"stations/edit"
+    erb :"/stations/edit"
   end
 
   put "/stations/:id" do |id|
@@ -46,4 +44,44 @@ class BikeShareApp < Sinatra::Base
     Station.destroy(id.to_i)
     redirect "/stations"
   end
+
+  get "/trips" do
+    @trips = Trip.all
+    erb :'/trips/index'
+  end
+
+  get "/trips-dashboard" do
+    @trips = Trip.all
+    erb :'/trips/dashboard'
+  end
+
+  get "/trips/new" do
+    erb :"/trips/new"
+  end
+
+  get "/trips/:id" do
+    @trip = Trip.find(params[:id])
+    erb :'/trips/show'
+  end
+
+  post "/trips" do
+    Trip.create(params[:trip])
+    redirect "/trips"
+  end
+
+  get "/trips/:id/edit" do
+    @trip = Trip.find(params[:id])
+    erb :"/trips/edit"
+  end
+
+  put "/trips/:id" do |id|
+    Trip.update(id.to_i, params[:trip])
+    redirect "/trips/#{id}"
+  end
+
+  delete "/trips/:id" do |id|
+    Trip.destroy(id.to_i)
+    redirect "/trips"
+  end
+
 end

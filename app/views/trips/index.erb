@@ -1,0 +1,9 @@
+<h1>Trips Index</h1>
+
+<% @trips.each do |trip| %>
+  <h3><a href="/trips/<%=trip.id%>"><%= trip.id %></a></h3>
+  <p><%= trip.start_date %></p>
+  <form action="/trips/<%= trip.id %>" method="POST">
+    <input type="submit" name="_method" value="Delete" />
+  </form>
+<% end %>
