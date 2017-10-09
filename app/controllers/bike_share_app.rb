@@ -99,7 +99,7 @@ class BikeShareApp < Sinatra::Base
   end
 
   post "/conditions" do
-    Condition.create(params[:conditions])
+    Condition.create(params[:condition])
     redirect "/conditions"
   end
 
@@ -109,7 +109,7 @@ class BikeShareApp < Sinatra::Base
   end
 
   put "/conditions/:id" do |id|
-    Condition.update(id.to_i, params[:conditions])
+    Condition.update(id.to_i, params[:condition])
     redirect "/conditions/#{id}"
   end
 

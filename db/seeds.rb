@@ -28,6 +28,7 @@ end
 
 conditions = (CSV.open'db/fixtures/weather_fixture.csv', headers: true, header_converters: :symbol)
 
+#do something to filter by zip code
 conditions.each do |condition|
   Condition.create!(date:              Date.strptime(condition[:date], "%m/%d/%Y"),
               max_temperature:         condition[:max_temperature_f].to_i,
