@@ -2,6 +2,7 @@ require 'csv'
 require 'date'
 require_relative '../app/models/station'
 require_relative '../app/models/trip'
+require_relative '../app/models/condition'
 
 stations = (CSV.open'db/fixtures/station_fixture.csv', headers: true, header_converters: :symbol)
 
@@ -24,4 +25,18 @@ trips.each do |trip|
               bike_id:                 trip[:bike_id].to_i,
               subscription_type:       trip[:subscription_type],
               zip_code:                trip[:zip_code])
+end
+
+conditions = (CSV.open'db/fixtures/weather_fixture.csv', headers: true, header_converters: :symbol)
+
+#do something to filter by zip code
+conditions.each do |condition|
+  Condition.create!(date:              Date.strptime(condition[:date], "%m/%d/%Y"),
+              max_temperature:         condition[:max_temperature_f].to_i,
+              mean_temperature:        condition[:mean_temperature_f].to_i,
+              min_temperature:         condition[:min_temperature_f].to_i,
+              mean_humidity:           condition[:mean_humidity].to_i,
+              mean_visibility:         condition[:mean_visibility_miles].to_i,
+              mean_wind_speed:         condition[:mean_wind_speed_mph].to_i,
+              precipitation:           condition[:precipitation_inches].to_i)
 end
