@@ -91,6 +91,8 @@ class BikeShareApp < Sinatra::Base
 
   get "/conditions-dashboard" do
     @conditions = Condition.all
+    @condition_temp_data = Condition.collect_descriptors_for_each_ten_degree_temp_range
+    
     erb :"/conditions/dashboard"
   end
 
