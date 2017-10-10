@@ -1,0 +1,14 @@
+<form action="/conditions/<%=@condition.id%>" method="POST">
+  <h1>Edit Trip Condition Details </h1>
+  Enter New Date: <input type='text' name='condition[date]' value="<%=@condition.date%>"/><br><br><br>
+  Enter New High Temperature: <input type='text' name='condition[max_temperature]' value="<%=@condition.max_temperature%>"/><br><br><br>
+  Enter New Mean Temperature: <input type='text' name='condition[mean_temperature]'value="<%=@condition.mean_temperature%>"/><br><br><br>
+  Enter New Low Temperature: <input type='text' name='condition[min_temperature]' value="<%=@condition.min_temperature%>"/><br><br><br>
+  Enter New Mean Humidity: <input type='text' name='condition[mean_humidity]' value="<%=@condition.mean_humidity%>"/><br><br><br>
+  Enter New Mean Visibility (in miles): <input type='text' name='condition[mean_visibility]' value="<%=@condition.mean_visibility%>"/><br><br><br>
+  Enter New Mean Wind Speed (in mph): <input type='text' name='condition[mean_wind_speed]' value="<%=@condition.mean_wind_speed%>"/><br><br><br>
+  Enter New Precipitation Total (in inches): <input type='text' name='condition[precipitation]' value="<%=@condition.precipitation%>"/><br><br><br>
+  <input type="hidden" name="_method" value="PUT">
+  <input type='submit' value='Save Changes'/><br><br>
+  <a href="/conditions/<%=@condition.id%>">Back to Trip Conditions</a>
+</form>
