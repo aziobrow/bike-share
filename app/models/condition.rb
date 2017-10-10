@@ -28,10 +28,13 @@ class Condition < ActiveRecord::Base
   end
 
   def self.find_trip_average_by_degree_range(range_floor)
-    # total_conditions = where('? <= max_temperature AND ? >= max_temperature', range_floor, range_floor + 9)
-    #   .joins(:trips)
-    #   .select("count(trips.id) AS trip_count, conditions.id")
-    #   .sum(:trip_count)
+    total_trips = where('? <= max_temperature AND ? >= max_temperature', range_floor, range_floor + 9)
+    .joins(:trips)
+    .count
+
+    number_of_conditions = where('? <= max_temperature AND ? >= max_temperature', range_floor, range_floor + 9).count
+
+    total_trips / number_of_conditions
   end
 
   def self.find_trip_max_by_degree_range(range_floor)
