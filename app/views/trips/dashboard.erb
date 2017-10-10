@@ -28,5 +28,12 @@
   <p>Date With Most Trips:  <%= @trips.first.display_date(@trips.first.date_with_most_trips.keys.first) %> Number of Trips: <%= @trips.first.date_with_most_trips.values.first %></p>
   <p>Date With Least Trips:  <%= @trips.first.display_date(@trips.first.date_with_least_trips.keys.first) %> Number of Trips: <%= @trips.first.date_with_least_trips.values.first %></p>
 
+  <p> <%= @condition_with_most_rides.max_temperature %></p>
+  <p> <%= @condition_with_most_rides.mean_temperature %></p>
+  <p> <%= @condition_with_most_rides.min_temperature %></p>
+  <p> <%= @condition_with_most_rides.mean_humidity %></p>
+  <p> <%= @condition_with_most_rides.mean_visibility %></p>
+  <p> <%= @condition_with_most_rides.mean_wind_speed %></p>
+  <p> precipitation in inches: <%= @condition_with_most_rides.precipitation %></p>
 
 </body>

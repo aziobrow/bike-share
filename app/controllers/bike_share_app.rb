@@ -52,6 +52,8 @@ class BikeShareApp < Sinatra::Base
 
   get "/trips-dashboard" do
     @trips = Trip.all
+    @condition_with_most_rides = Condition.find_condition_with_most_trips
+    @condition_with_least_rides = Condition.find_condition_with_least_trips
     erb :'/trips/dashboard'
   end
 

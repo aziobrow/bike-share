@@ -291,4 +291,20 @@ class Condition < ActiveRecord::Base
     all_visibility_descriptors
   end
 
+  def self.find_condition_with_most_trips
+    joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.id")
+      .group("conditions.id")
+      .order("trip_count DESC")
+      .first
+  end
+
+  def self.find_condition_with_least_trips
+    joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.id")
+      .group("conditions.id")
+      .order("trip_count ASC")
+      .first
+  end
+
 end
