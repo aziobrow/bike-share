@@ -1,1 +1,10 @@
 <h1>Conditions Dashboard</h1>
+
+<h3>Breakdown of Trips Taken Per Ten Degree Temperature Range</h3>
+<h6>Range: <%@conditions.collect_max_temp_ranges.each do |range|%><%=range%></h6>
+  <ul><%@conditions.collect_descriptors_for_each_ten_degree_temp_range.each do |descriptor| %>
+    <li>Average Rides: <%=descriptor[0]%></li>
+    <li>Maximum Rides: <%=descriptor[1]%></li>
+    <li>Minimum Rides: <%=descriptor[2]%></li>
+  </ul><%end%>
+  <%end%>
