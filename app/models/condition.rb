@@ -86,7 +86,7 @@ class Condition < ActiveRecord::Base
     range_ceiling = find_max_precipitation
     range_values = []
     until range_floor > range_ceiling
-      range_values << "#{range_floor} - #{range_floor + 0.5}: "
+      range_values << "#{range_floor} - #{range_floor + 0.49}: "
       range_floor += 0.5
     end
     range_values
@@ -145,6 +145,150 @@ class Condition < ActiveRecord::Base
       range_floor += 0.5
     end
     all_precipitation_descriptors
+  end
+
+  def self.find_max_wind_speed
+    maximum(:mean_wind_speed)
+  end
+
+  def self.collect_max_wind_speed_range
+    range_floor = 0
+    range_ceiling = find_max_wind_speed
+    range_values = []
+    until range_floor > range_ceiling
+      range_values << "#{range_floor} - #{range_floor + 4}: "
+      range_floor += 4
+    end
+    range_values
+  end
+
+  def self.find_trip_max_by_mean_wind_speed_range(range_floor)
+    conditions_in_range =
+    where('? <= mean_wind_speed AND ? > mean_wind_speed', range_floor, range_floor + 4)
+      .joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.id")
+      .group("conditions.id")
+      .order("trip_count DESC")
+      .first
+    if conditions_in_range.nil?
+      0
+    else
+      conditions_in_range.trip_count
+    end
+  end
+
+  def self.find_trip_min_by_mean_wind_speed_range(range_floor)
+    conditions_in_range =
+    where('? <= mean_wind_speed AND ? >= mean_wind_speed', range_floor, range_floor + 4)
+      .joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.id")
+      .group("conditions.id")
+      .order("trip_count")
+      .first
+      if conditions_in_range.nil?
+        0
+      else
+        conditions_in_range.trip_count
+      end
+  end
+
+  def self.find_trip_average_by_mean_wind_speed_range(range_floor)
+    total_trips = where('? <= mean_wind_speed AND ? >= mean_wind_speed', range_floor, range_floor + 4)
+      .joins(:trips)
+      .count
+
+    return 0 if total_trips == 0
+
+    number_of_conditions = where('? <= mean_wind_speed AND ? >= mean_wind_speed', range_floor, range_floor + 4).count
+
+    total_trips / number_of_conditions
+  end
+
+  def self.collect_descriptors_for_each_mean_wind_speed_range
+    range_floor = 0
+    range_ceiling = find_max_wind_speed
+    all_wind_speed_descriptors = []
+    until range_floor > range_ceiling
+      range_descriptors = []
+      range_descriptors << find_trip_average_by_mean_wind_speed_range(range_floor)
+      range_descriptors << find_trip_max_by_mean_wind_speed_range(range_floor)
+      range_descriptors << find_trip_min_by_mean_wind_speed_range(range_floor)
+      all_wind_speed_descriptors << range_descriptors
+      range_floor += 4
+    end
+    all_wind_speed_descriptors
+  end
+
+  def self.find_max_visibility
+    maximum(:mean_visibility)
+  end
+
+  def self.collect_max_visbility_range
+    range_floor = 0
+    range_ceiling = find_max_visibility
+    range_values = []
+    until range_floor > range_ceiling
+      range_values << "#{range_floor} - #{range_floor + 4}: "
+      range_floor += 4
+    end
+    range_values
+  end
+
+  def self.find_trip_max_by_mean_visibility_range(range_floor)
+    conditions_in_range =
+    where('? <= mean_visibility AND ? > mean_visibility', range_floor, range_floor + 4)
+      .joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.id")
+      .group("conditions.id")
+      .order("trip_count DESC")
+      .first
+    if conditions_in_range.nil?
+      0
+    else
+      conditions_in_range.trip_count
+    end
+  end
+
+  def self.find_trip_min_by_mean_visibility_range(range_floor)
+    conditions_in_range =
+    where('? <= mean_visibility AND ? >= mean_visibility', range_floor, range_floor + 4)
+      .joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.id")
+      .group("conditions.id")
+      .order("trip_count")
+      .first
+      if conditions_in_range.nil?
+        0
+      else
+        conditions_in_range.trip_count
+      end
+  end
+
+  def self.find_trip_average_by_mean_visibility_range(range_floor)
+    total_trips = where('? <= mean_visibility AND ? >= mean_visibility', range_floor, range_floor + 4)
+      .joins(:trips)
+      .count
+
+    return 0 if total_trips == 0
+
+    number_of_conditions = where('? <= mean_visibility AND ? >= mean_visibility', range_floor, range_floor + 4).count
+
+    total_trips / number_of_conditions
+  end
+
+  def self.collect_descriptors_for_each_mean_visibility_range
+    range_floor = 0
+    range_ceiling = find_max_visibility
+    all_visibility_descriptors = []
+    until range_floor > range_ceiling
+      range_descriptors = []
+      range_descriptors << find_trip_average_by_mean_visibility_range(range_floor)
+      range_descriptors << find_trip_max_by_mean_visibility_range(range_floor)
+      range_descriptors << find_trip_min_by_mean_visibility_range(range_floor)
+      all_visibility_descriptors << range_descriptors
+      range_floor += 4
+    end
+    all_visibility_descriptors
   end
 
 end
