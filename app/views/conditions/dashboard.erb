@@ -26,3 +26,12 @@
     <li>Minimum Rides: <%=@condition_wind_speed_data[index][2]%></li>
   </ul>
   <%end%>
+
+<h3>Breakdown of Trips Taken by 4 miles of Visibility</h3>
+  <%@conditions.collect_max_visbility_range.each.with_index do |range, index|%><h6>Range: <%=range%> miles</h6>
+  <ul>
+    <li>Average Rides: <%=@condition_visibility_data[index][0]%></li>
+    <li>Maximum Rides: <%=@condition_visibility_data[index][1]%></li>
+    <li>Minimum Rides: <%=@condition_visibility_data[index][2]%></li>
+  </ul>
+  <%end%>

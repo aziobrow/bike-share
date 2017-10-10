@@ -219,4 +219,76 @@ class Condition < ActiveRecord::Base
     all_wind_speed_descriptors
   end
 
+  def self.find_max_visibility
+    maximum(:mean_visibility)
+  end
+
+  def self.collect_max_visbility_range
+    range_floor = 0
+    range_ceiling = find_max_visibility
+    range_values = []
+    until range_floor > range_ceiling
+      range_values << "#{range_floor} - #{range_floor + 4}: "
+      range_floor += 4
+    end
+    range_values
+  end
+
+  def self.find_trip_max_by_mean_visibility_range(range_floor)
+    conditions_in_range =
+    where('? <= mean_visibility AND ? > mean_visibility', range_floor, range_floor + 4)
+      .joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.id")
+      .group("conditions.id")
+      .order("trip_count DESC")
+      .first
+    if conditions_in_range.nil?
+      0
+    else
+      conditions_in_range.trip_count
+    end
+  end
+
+  def self.find_trip_min_by_mean_visibility_range(range_floor)
+    conditions_in_range =
+    where('? <= mean_visibility AND ? >= mean_visibility', range_floor, range_floor + 4)
+      .joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.id")
+      .group("conditions.id")
+      .order("trip_count")
+      .first
+      if conditions_in_range.nil?
+        0
+      else
+        conditions_in_range.trip_count
+      end
+  end
+
+  def self.find_trip_average_by_mean_visibility_range(range_floor)
+    total_trips = where('? <= mean_visibility AND ? >= mean_visibility', range_floor, range_floor + 4)
+      .joins(:trips)
+      .count
+
+    return 0 if total_trips == 0
+
+    number_of_conditions = where('? <= mean_visibility AND ? >= mean_visibility', range_floor, range_floor + 4).count
+
+    total_trips / number_of_conditions
+  end
+
+  def self.collect_descriptors_for_each_mean_visibility_range
+    range_floor = 0
+    range_ceiling = find_max_visibility
+    all_visibility_descriptors = []
+    until range_floor > range_ceiling
+      range_descriptors = []
+      range_descriptors << find_trip_average_by_mean_visibility_range(range_floor)
+      range_descriptors << find_trip_max_by_mean_visibility_range(range_floor)
+      range_descriptors << find_trip_min_by_mean_visibility_range(range_floor)
+      all_visibility_descriptors << range_descriptors
+      range_floor += 4
+    end
+    all_visibility_descriptors
+  end
+
 end
