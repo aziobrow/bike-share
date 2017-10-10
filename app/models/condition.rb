@@ -72,5 +72,79 @@ class Condition < ActiveRecord::Base
     all_temp_descriptors
   end
 
+  def self.find_max_precipitation
+    max = maximum(:precipitation)
+    if max.round > max
+      max.round - 0.5
+    else
+      max.round + 0.5
+    end
+  end
+
+  def self.collect_max_precipitation_ranges
+    range_floor = 0
+    range_ceiling = find_max_precipitation
+    range_values = []
+    until range_floor > range_ceiling
+      range_values << "#{range_floor} - #{range_floor + 0.5}: "
+      range_floor += 0.5
+    end
+    range_values
+  end
+
+  def self.find_trip_max_by_precipitation_range(range_floor)
+    conditions_in_range =
+    where('? <= precipitation AND ? > precipitation', range_floor, range_floor + 0.5)
+      .joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.id")
+      .group("conditions.id")
+      .order("trip_count DESC")
+      .first
+    if conditions_in_range.nil?
+      0
+    else
+      conditions_in_range.trip_count
+    end
+  end
+
+  def self.find_trip_min_by_precipitation_range(range_floor)
+    conditions_in_range =
+    where('? <= precipitation AND ? >= precipitation', range_floor, range_floor + 0.5)
+      .joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.id")
+      .group("conditions.id")
+      .order("trip_count")
+      .first
+      if conditions_in_range.nil?
+        0
+      else
+        conditions_in_range.trip_count
+      end
+  end
+
+  def self.find_trip_average_by_precipitation_range(range_floor)
+    total_trips = where('? <= precipitation AND ? >= precipitation', range_floor, range_floor + 0.5)
+    .joins(:trips)
+    .count
+    return 0 if total_trips == 0
+    number_of_conditions = where('? <= precipitation AND ? >= precipitation', range_floor, range_floor + 0.5).count
+
+    total_trips / number_of_conditions
+  end
+
+  def self.collect_descriptors_for_each_precipitation_range
+    range_floor = 0
+    range_ceiling = find_max_precipitation
+    all_precipitation_descriptors = []
+    until range_floor > range_ceiling
+      range_descriptors = []
+      range_descriptors << find_trip_average_by_precipitation_range(range_floor)
+      range_descriptors << find_trip_max_by_precipitation_range(range_floor)
+      range_descriptors << find_trip_min_by_precipitation_range(range_floor)
+      all_precipitation_descriptors << range_descriptors
+      range_floor += 0.5
+    end
+    all_precipitation_descriptors
+  end
 
 end
