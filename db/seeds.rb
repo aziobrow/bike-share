@@ -30,9 +30,12 @@ conditions.each do |condition|
   end
 end
 
-trips = (CSV.open'db/fixtures/trip_fixture.csv', headers: true, header_converters: :symbol)
+trips = (CSV.open'db/csv/trip.csv', headers: true, header_converters: :symbol)
 
+count = 0
 trips.each do |trip|
+  put "Trip #{count} seeded"
+  count += 1
 
   Trip.create!(duration:               trip[:duration],
               start_date:              Date.strptime(trip[:start_date], "%m/%d/%Y"),
