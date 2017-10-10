@@ -92,7 +92,8 @@ class BikeShareApp < Sinatra::Base
   get "/conditions-dashboard" do
     @conditions = Condition.all
     @condition_temp_data = Condition.collect_descriptors_for_each_ten_degree_temp_range
-    
+    @condition_precip_data = Condition.collect_descriptors_for_each_precipitation_range
+    @condition_wind_speed_data = Condition.collect_descriptors_for_each_mean_wind_speed_range
     erb :"/conditions/dashboard"
   end
 
