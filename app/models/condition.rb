@@ -27,28 +27,31 @@ class Condition < ActiveRecord::Base
     range_values
   end
 
-  def self.find_trip_count_by_degree_range(range_floor)
-    condition_ids = where('? <= max_temperature AND ? >= max_temperature', range_floor, range_floor + 9)
-      .select(:id)
-
-    Trip.where('condition_id IN (?)', condition_ids).group(:condition_id).count.values
-  end
-
   def self.find_trip_average_by_degree_range(range_floor)
-    condition_trip_count = find_trip_count_by_degree_range(range_floor)
-    if condition_trip_count.empty?
-      0
-    else
-      condition_trip_count.sum / condition_trip_count.length
-    end
+    # total_conditions = where('? <= max_temperature AND ? >= max_temperature', range_floor, range_floor + 9)
+    #   .joins(:trips)
+    #   .select("count(trips.id) AS trip_count, conditions.id")
+    #   .sum(:trip_count)
   end
 
   def self.find_trip_max_by_degree_range(range_floor)
-    find_trip_count_by_degree_range(range_floor).max
+    where('? <= max_temperature AND ? >= max_temperature', range_floor, range_floor + 9)
+      .joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.id")
+      .group("conditions.id")
+      .order("trip_count DESC")
+      .first
+      .trip_count
   end
 
   def self.find_trip_min_by_degree_range(range_floor)
-    find_trip_count_by_degree_range(range_floor).min
+    where('? <= max_temperature AND ? >= max_temperature', range_floor, range_floor + 9)
+      .joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.id")
+      .group("conditions.id")
+      .order("trip_count")
+      .first
+      .trip_count
   end
 
   def self.collect_descriptors_for_each_ten_degree_temp_range
