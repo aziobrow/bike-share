@@ -5,7 +5,7 @@ require_relative '../app/models/station'
 require_relative '../app/models/trip'
 require_relative '../app/models/condition'
 
-stations = (CSV.open'db/fixtures/station_fixture.csv', headers: true, header_converters: :symbol)
+stations = (CSV.open'db/csv/station.csv', headers: true, header_converters: :symbol)
 
 stations.each do |station|
   Station.create!(name:             station[:name],
@@ -15,7 +15,7 @@ stations.each do |station|
                  station_id:        station[:id])
 end
 
-conditions = (CSV.open'db/fixtures/weather_fixture.csv', headers: true, header_converters: :symbol)
+conditions = (CSV.open'db/csv/weather.csv', headers: true, header_converters: :symbol)
 
 conditions.each do |condition|
   if condition[:zip_code] == "94107"
