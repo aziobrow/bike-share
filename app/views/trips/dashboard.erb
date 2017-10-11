@@ -1,14 +1,3 @@
-<head>
-  <link rel='stylesheet' href='/stylesheets/main.css'>
-</head>
-
-<body>
-  <ul class='nav-bar'>
-    <li class='nav-bar-item'><a href="/stations">stations</a></li>
-    <li class='nav-bar-item'><a href="/trips">trips</a></li>
-    <li class='nav-bar-item'><a href="/conditions">weather conditions</a></li>
-  </ul>
-
   <h1>Trips Overview</h1>
   <p>Average Duration of Ride: <%= @trips.first.average_duration_of_a_ride %></p>
   <p>Longest Ride: <%= @trips.first.longest_ride %></p>
@@ -28,12 +17,14 @@
   <p>Date With Most Trips:  <%= @trips.first.display_date(@trips.first.date_with_most_trips.keys.first) %> Number of Trips: <%= @trips.first.date_with_most_trips.values.first %></p>
   <p>Date With Least Trips:  <%= @trips.first.display_date(@trips.first.date_with_least_trips.keys.first) %> Number of Trips: <%= @trips.first.date_with_least_trips.values.first %></p>
 
-  <p> <%= @condition_with_most_rides.max_temperature %></p>
-  <p> <%= @condition_with_most_rides.mean_temperature %></p>
-  <p> <%= @condition_with_most_rides.min_temperature %></p>
-  <p> <%= @condition_with_most_rides.mean_humidity %></p>
-  <p> <%= @condition_with_most_rides.mean_visibility %></p>
-  <p> <%= @condition_with_most_rides.mean_wind_speed %></p>
-  <p> precipitation in inches: <%= @condition_with_most_rides.precipitation %></p>
 
-</body>
+  <h5> Weather Conditions for Day with Most Rides</h5>
+  <ul>
+    <li> Max Temperature: <%= @condition_with_most_rides.max_temperature %> degrees</li>
+    <li> Average Temperature: <%= @condition_with_most_rides.mean_temperature %> degrees</li>
+    <li> Min Temperature: <%= @condition_with_most_rides.min_temperature %> degrees</li>
+    <li> Average Humidity: <%= @condition_with_most_rides.mean_humidity %> %</li>
+    <li> Average Visibility: <%= @condition_with_most_rides.mean_visibility %> miles</li>
+    <li> Average Wind Speed: <%= @condition_with_most_rides.mean_wind_speed %> miles per hour</li>
+    <li> Precipitatio: <%= @condition_with_most_rides.precipitation %> inches</li>
+  </ul>
