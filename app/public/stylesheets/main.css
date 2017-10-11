@@ -59,6 +59,7 @@ li a:hover {
   margin: 18px 18px 18px 18px;
   float: left;
 }
+
 article.index-item {
   display: flex;
   height: 200px;
@@ -87,12 +88,16 @@ article.index-item h3 {
 
 img.main-img {
   display: block;
-  opacity: 0.4;
-  width: 40%;
+  opacity: 0.9;
+  width: 50%;
   height: auto;
   margin: auto;
 }
 
 .dashboard {
   width: 80%;
+}
+
+section {
+  margin-top: 100px;
 }
