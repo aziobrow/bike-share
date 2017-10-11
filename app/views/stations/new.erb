@@ -1,12 +1,14 @@
-<form action="/stations" method="post">
-  <p>Enter a new station:</p>
-  <label>Name:</label>
-  <input type='text' name='station[name]'/><br/><br/>
-  <label>City:</label>
-  <input type='text' name='station[city]'/><br/><br/>
-  <label>Number of Docks:</label>
-  <input type='text' name='station[dock_count]'/><br/><br/>
-  <label>Installation Date:</label>
-  <input type='text' name='station[installation_date]'/><br/><br/>
-  <input type='submit' value='Create Station'/>
-</form>
+<main class="new-form">
+  <form action="/stations" method="post">
+    <h1 class='title'>create a new station</h1>
+    <label>Name:</label>
+    <input type='text' name='station[name]'/><br/><br/>
+    <label>City:</label>
+    <input type='text' name='station[city]'/><br/><br/>
+    <label>Number of Docks:</label>
+    <input type='text' name='station[dock_count]'/><br/><br/>
+    <label>Installation Date:</label>
+    <input type='text' name='station[installation_date]'/><br/><br/>
+    <input type='submit' value='Create Station'/>
+  </form>
+</main>

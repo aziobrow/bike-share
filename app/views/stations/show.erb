@@ -1,7 +1,7 @@
 <a href='/stations'>Back to All Stations</a>
 
-<h1 class="title"><%=@station.name%></h1>
-  <main class="show"
+<main class="show">
+  <h1 class="title"><%=@station.name%></h1>
       <p>Dock Count: <%= @station.dock_count%></p>
       <p>City: <%= @station.city%></p>
       <p>Date Installed: <%= @station.installation_date%></p>
@@ -12,10 +12,10 @@
       <p>Date with Most Trips Started Here: <%= @station.date_with_most_trips %></p>
       <p>Most Frequent User Zip Code for this Station: <%= @station.most_frequent_starting_zip_code %></p>
       <p>Most Popular Bike ID Starting Here: <%= @station.most_frequent_starting_bike %></p>
-  </main>
   <form class="" action="/stations/<%= @station.id %>/edit" method="GET">
     <input type="submit" name="_method" value="Edit">
   </form>
   <form action="/stations/<%= @station.id %>" method="POST">
     <input type="submit" name="_method" value="Delete" />
   </form>
+</main>

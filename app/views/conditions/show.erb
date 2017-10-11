@@ -1,6 +1,6 @@
 <a href='/conditions'>Back to All Trip Conditions</a>
-<h1 class="title">weather conditions for <%=@condition.date%></h1>
-  <main class="show">
+<main class="show">
+  <h1 class="title">weather conditions for <%=@condition.date%></h1>
     <p>High Temperature: <%= @condition.max_temperature%></p>
     <p>Mean Temperature: <%= @condition.mean_temperature%></p>
     <p>Low Temperature: <%= @condition.min_temperature%></p>
@@ -8,10 +8,10 @@
     <p>Mean Visibility (in miles): <%= @condition.mean_visibility %></p>
     <p>Mean Wind Speed (in mph): <%= @condition.mean_wind_speed %></p>
     <p>Precipitation (in inches): <%= @condition.precipitation %></p>
-  </main>
   <form class="" action="/conditions/<%= @condition.id %>/edit" method="GET">
     <input type="submit" name="_method" value="Edit">
   </form>
   <form action="/conditions/<%= @condition.id %>" method="POST">
     <input type="submit" name="_method" value="Delete" />
   </form>
+</main>

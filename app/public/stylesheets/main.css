@@ -81,11 +81,6 @@ article.index-item h3 {
   text-align: center;
 }
 
-.paginate {
-  display: flex;
-  align-items: flex-end;
-}
-
 img.main-img {
   display: block;
   opacity: 0.4;
