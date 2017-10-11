@@ -1,13 +1,17 @@
-<h1>Weather Conditions Index</h1>
+<h1 class="title">weather conditions index</h1>
 
 <% @conditions.each do |condition| %>
-  <h3><a href="/conditions/<%=condition.id%>"><%= condition.date %></a></h3>
-  <form class="" action="/conditions/<%= condition.id %>/edit" method="GET">
-    <input type="submit" value="Edit">
-  </form>
-  <form action="/conditions/<%= condition.id %>" method="POST">
-    <input type="submit" name="_method" value="Delete" />
-  </form>
+  <section class="index-container">
+    <article class="index-item">
+      <h3><a href="/conditions/<%=condition.id%>"><%= condition.date %></a></h3>
+      <form class="" action="/conditions/<%= condition.id %>/edit" method="GET">
+        <input type="submit" value="Edit">
+      </form>
+      <form action="/conditions/<%= condition.id %>" method="POST">
+        <input type="submit" name="_method" value="Delete" />
+      </form>
+    </article>
+  </section>
 <% end %>
 
 <%= will_paginate @conditions %>

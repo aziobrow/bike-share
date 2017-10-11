@@ -121,24 +121,5 @@ class Trip < ActiveRecord::Base
 
     Condition.find(condition_id.first)
   end
-  # def self.find_condition_on_date_with_most_trips
-  #   condition_id = joins(:condition)
-  #     .group("condition_id")
-  #     .order("count_id DESC")
-  #     .count(:id)
-  #     .first
-  #
-  #   Condition.find(condition_id.first)
-  # end
-  #
-  # def self.find_condition_on_date_with_least_trips
-  #   condition_id = joins(:condition)
-  #     .group("condition_id")
-  #     .order("count_id")
-  #     .count(:id)
-  #     .first
-  #
-  #   Condition.find(condition_id.first)
-  # end
 
 end

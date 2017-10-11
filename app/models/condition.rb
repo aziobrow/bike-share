@@ -141,4 +141,20 @@ class Condition < ActiveRecord::Base
     collect_descriptors_for_range(range_floor, range_ceiling, "mean_visibility", 4)
   end
 
+  def self.find_condition_with_most_trips
+    joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.*")
+      .group("conditions.id")
+      .order("trip_count DESC")
+      .first
+  end
+
+  def self.find_condition_with_least_trips
+    joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.*")
+      .group("conditions.id")
+      .order("trip_count")
+      .first
+  end
+
 end

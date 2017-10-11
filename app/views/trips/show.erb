@@ -1,16 +1,18 @@
 <a href='/trips'>Back to All Trips</a>
-<h1>Viewing Trip: <%=@trip.id%></h1>
-  <p>Duration in Minutes: <%= @trip.calculate_duration%></p>
-  <p>Start Date: <%= @trip.start_date%></p>
-  <p>Starting Station: <%= @trip.starting_station_name%></p>
-  <p>End Date: <%= @trip.end_date%></p>
-  <p>Ending Station: <%= @trip.ending_station_name%></p>
-  <p>Bike Used: <%= @trip.bike_id%></p>
-  <p>Subcription Type: <%= @trip.subscription_type%></p>
-  <p>Zip Code: <%= @trip.zip_code%></p>
+<main class="show">
+  <h1 class="title">trip ID: <%=@trip.id%></h1>
+    <p>Duration in Minutes: <%= @trip.calculate_duration%></p>
+    <p>Start Date: <%= @trip.start_date%></p>
+    <p>Starting Station: <%= @trip.starting_station_name%></p>
+    <p>End Date: <%= @trip.end_date%></p>
+    <p>Ending Station: <%= @trip.ending_station_name%></p>
+    <p>Bike Used: <%= @trip.bike_id%></p>
+    <p>Subcription Type: <%= @trip.subscription_type%></p>
+    <p>Zip Code: <%= @trip.zip_code%></p>
   <form class="" action="/trips/<%= @trip.id %>/edit" method="GET">
     <input type="submit" name="_method" value="Edit">
   </form>
   <form action="/trips/<%= @trip.id %>" method="POST">
     <input type="submit" name="_method" value="Delete" />
   </form>
+</main>
