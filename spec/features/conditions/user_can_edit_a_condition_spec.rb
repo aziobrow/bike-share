@@ -6,7 +6,7 @@ describe "User visits condition edit page" do
 
   it "they can edit the condition" do
     visit "/conditions/#{@condition1.id}/edit"
-    save_and_open_page
+
     fill_in("condition[date]", with: "2011-11-11")
     fill_in("condition[max_temperature]", with: '99')
     fill_in("condition[mean_temperature]", with: '49')
