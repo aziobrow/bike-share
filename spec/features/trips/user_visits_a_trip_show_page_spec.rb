@@ -9,7 +9,7 @@ describe "When a user visits a trip show page" do
   it 'they see a trips information' do
     visit "/trips/#{@trip_1.id}"
 
-    expect(page).to have_content("Viewing Trip: 1")
+    expect(page).to have_content("trip ID: 1")
     expect(page).to have_content("Duration in Minutes: 24")
     expect(page).to have_content("Start Date: 2017-10-07")
     expect(page).to have_content("Starting Station: Humberto")
