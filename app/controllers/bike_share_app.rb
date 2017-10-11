@@ -2,11 +2,9 @@ require 'will_paginate'
 require 'will_paginate/active_record'
 
 class BikeShareApp < Sinatra::Base
-  configure do
-    set :root, File.expand_path("..", __dir__)
-    set :method_override, true
-    register WillPaginate::Sinatra
-  end
+  set :root, File.expand_path("..", __dir__)
+  set :method_override, true
+  register WillPaginate::Sinatra
 
   get "/" do
     erb :dashboard
@@ -15,6 +13,11 @@ class BikeShareApp < Sinatra::Base
   get "/stations" do
     @stations = Station.all
     erb :'/stations/index'
+  end
+
+  get "/stations/:id/edit" do
+    @station = Station.find(params[:id])
+    erb :"/stations/edit"
   end
 
   get "/stations-dashboard" do
@@ -36,10 +39,6 @@ class BikeShareApp < Sinatra::Base
     erb :"/stations/show"
   end
 
-  get "/stations/:id/edit" do
-    @station = Station.find(params[:id])
-    erb :"/stations/edit"
-  end
 
   put "/stations/:id" do |id|
     Station.update(id.to_i, params[:station])
@@ -54,6 +53,11 @@ class BikeShareApp < Sinatra::Base
   get "/trips" do
     @trips = Trip.all.paginate(:page => params[:page], :per_page => 30)
     erb :'/trips/index'
+  end
+
+  get "/trips/:id/edit" do
+    @trip = Trip.find(params[:id])
+    erb :"/trips/edit"
   end
 
   get "/trips-dashboard" do
@@ -75,10 +79,6 @@ class BikeShareApp < Sinatra::Base
     redirect "/trips"
   end
 
-  get "/trips/:id/edit" do
-    @trip = Trip.find(params[:id])
-    erb :"/trips/edit"
-  end
 
   put "/trips/:id" do |id|
     Trip.update(id.to_i, params[:trip])
@@ -93,6 +93,11 @@ class BikeShareApp < Sinatra::Base
   get "/conditions" do
     @conditions = Condition.all.paginate(:page => params[:page], :per_page => 10)
     erb :"/conditions/index"
+  end
+
+  get "/conditions/:id/edit" do
+    @condition = Condition.find(params[:id])
+    erb :"/conditions/edit"
   end
 
   get "/conditions-dashboard" do
@@ -116,11 +121,6 @@ class BikeShareApp < Sinatra::Base
   post "/conditions" do
     Condition.create(params[:condition])
     redirect "/conditions"
-  end
-
-  get "/conditions/:id/edit" do
-    @condition = Condition.find(params[:id])
-    erb :"/conditions/edit"
   end
 
   put "/conditions/:id" do |id|
