@@ -1,4 +1,5 @@
-  <h1>Trips Overview</h1>
+<main class="dashboard">
+  <h1 class="title">trips dashboard</h1>
   <p>Average Duration of Ride: <%= @trips.first.average_duration_of_a_ride %></p>
   <p>Longest Ride: <%= @trips.first.longest_ride %></p>
   <p>Shortest Ride: <%= @trips.first.shortest_ride %></p>
@@ -39,3 +40,4 @@
     <li> Average Wind Speed: <%= @condition_with_least_rides.mean_wind_speed %> miles per hour</li>
     <li> Precipitatio: <%= @condition_with_least_rides.precipitation %> inches</li>
   </ul>
+</main>

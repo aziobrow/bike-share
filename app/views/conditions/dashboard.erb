@@ -1,37 +1,39 @@
-<h1>Conditions Dashboard</h1>
+<main class="dashboard">
+  <h1 class="title">weather dashboard</h1>
 
-<h3>Breakdown of Trips Taken Per Ten Degree Temperature Range</h3>
-  <%@conditions.collect_max_temp_ranges.each.with_index do |range, index|%><h6>Range: <%=range%> degrees</h6>
-  <ul>
-    <li>Average Rides: <%=@condition_temp_data[index][0]%></li>
-    <li>Maximum Rides: <%=@condition_temp_data[index][1]%></li>
-    <li>Minimum Rides: <%=@condition_temp_data[index][2]%></li>
-  </ul>
-  <%end%>
+  <h2>Breakdown of Trips Taken Per Ten Degree Temperature Range</h2>
+    <%@conditions.collect_max_temp_ranges.each.with_index do |range, index|%><h4>Range: <%=range%> degrees</h4>
+    <ul>
+      <li>Average Rides: <%=@condition_temp_data[index][0]%></li>
+      <li>Maximum Rides: <%=@condition_temp_data[index][1]%></li>
+      <li>Minimum Rides: <%=@condition_temp_data[index][2]%></li>
+    </ul>
+    <%end%>
 
-<h3>Breakdown of Trips Taken Per 0.5" of Rain</h3>
-  <%@conditions.collect_max_precipitation_ranges.each.with_index do |range, index|%><h6>Range: <%=range%> inches</h6>
-  <ul>
-    <li>Average Rides: <%=@condition_precip_data[index][0]%></li>
-    <li>Maximum Rides: <%=@condition_precip_data[index][1]%></li>
-    <li>Minimum Rides: <%=@condition_precip_data[index][2]%></li>
-  </ul>
-  <%end%>
+  <h2>Breakdown of Trips Taken Per 0.5" of Rain</h2>
+    <%@conditions.collect_max_precipitation_ranges.each.with_index do |range, index|%><h4>Range: <%=range%> inches</h4>
+    <ul>
+      <li>Average Rides: <%=@condition_precip_data[index][0]%></li>
+      <li>Maximum Rides: <%=@condition_precip_data[index][1]%></li>
+      <li>Minimum Rides: <%=@condition_precip_data[index][2]%></li>
+    </ul>
+    <%end%>
 
-<h3>Breakdown of Trips Taken by 4 miles per hour of Wind Speed</h3>
-  <%@conditions.collect_max_wind_speed_range.each.with_index do |range, index|%><h6>Range: <%=range%> miles per hour</h6>
-  <ul>
-    <li>Average Rides: <%=@condition_wind_speed_data[index][0]%></li>
-    <li>Maximum Rides: <%=@condition_wind_speed_data[index][1]%></li>
-    <li>Minimum Rides: <%=@condition_wind_speed_data[index][2]%></li>
-  </ul>
-  <%end%>
+  <h2>Breakdown of Trips Taken by 4 miles per hour of Wind Speed</h2>
+    <%@conditions.collect_max_wind_speed_range.each.with_index do |range, index|%><h4>Range: <%=range%> miles per hour</h4>
+    <ul>
+      <li>Average Rides: <%=@condition_wind_speed_data[index][0]%></li>
+      <li>Maximum Rides: <%=@condition_wind_speed_data[index][1]%></li>
+      <li>Minimum Rides: <%=@condition_wind_speed_data[index][2]%></li>
+    </ul>
+    <%end%>
 
-<h3>Breakdown of Trips Taken by 4 miles of Visibility</h3>
-  <%@conditions.collect_max_visbility_range.each.with_index do |range, index|%><h6>Range: <%=range%> miles</h6>
-  <ul>
-    <li>Average Rides: <%=@condition_visibility_data[index][0]%></li>
-    <li>Maximum Rides: <%=@condition_visibility_data[index][1]%></li>
-    <li>Minimum Rides: <%=@condition_visibility_data[index][2]%></li>
-  </ul>
-  <%end%>
+  <h2>Breakdown of Trips Taken by 4 miles of Visibility</h2>
+    <%@conditions.collect_max_visbility_range.each.with_index do |range, index|%><h4>Range: <%=range%> miles</h4>
+    <ul>
+      <li>Average Rides: <%=@condition_visibility_data[index][0]%></li>
+      <li>Maximum Rides: <%=@condition_visibility_data[index][1]%></li>
+      <li>Minimum Rides: <%=@condition_visibility_data[index][2]%></li>
+    </ul>
+    <%end%>
+</main>
