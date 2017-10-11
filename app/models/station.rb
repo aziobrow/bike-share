@@ -4,38 +4,38 @@ class Station < ActiveRecord::Base
   validates :dock_count, presence: true
   validates :installation_date, presence: true
 
-  def mean_number_of_bikes
-    Station.average(:dock_count)
+  def self.mean_number_of_bikes
+    average(:dock_count)
+    .round
   end
 
-  def max_number_of_bikes
-    Station.maximum(:dock_count)
+  def self.max_number_of_bikes
+    maximum(:dock_count)
   end
 
-  def station_with_max_bikes
-    Station.all.select do |station|
-      station.dock_count == max_number_of_bikes
-    end
+  def self.station_with_max_bikes
+    where(dock_count: max_number_of_bikes)
   end
 
-  def min_number_of_bikes
-    Station.minimum(:dock_count)
+  def self.min_number_of_bikes
+    minimum(:dock_count)
   end
 
-  def station_with_min_bikes
-    Station.all.select do |station|
-      station.dock_count == min_number_of_bikes
-    end
+  def self.station_with_min_bikes
+    where(dock_count: min_number_of_bikes)
   end
 
-  def most_recently_installed_station
-    Station.order(:installation_date).last
+  def self.most_recently_installed_station
+    order("installation_date DESC")
+    .first
   end
 
-  def oldest_station
-    Station.order(:installation_date).first
+  def self.oldest_station
+    order(:installation_date)
+    .first
   end
 
+#probably needs a relationship between station and trip 
   def count_rides_started_at_station
     station_counts = Trip.group(:start_station_id).count
     if station_counts.keys.include?(self.station_id)

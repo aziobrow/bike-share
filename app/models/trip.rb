@@ -22,21 +22,21 @@ class Trip < ActiveRecord::Base
     if self.duration
       self.duration / 60
     else
-      duration = self.end_date - self.start_date
-      duration / 60
+      self.end_date - self.start_date / 60
     end
   end
 
-  def average_duration_of_a_ride
-    Trip.average(:duration).round
+  def self.average_duration_of_a_ride
+    average(:duration)
+    .round
   end
 
-  def longest_ride
-    Trip.maximum(:duration)
+  def self.longest_ride
+    maximum(:duration)
   end
 
-  def shortest_ride
-    Trip.minimum(:duration)
+  def self.shortest_ride
+    minimum(:duration)
   end
 
   def most_frequent_starting_station
@@ -75,40 +75,51 @@ class Trip < ActiveRecord::Base
     rides_per_month
   end
 
-  def most_ridden_bike_with_total_number_of_rides
-    Trip.group(:bike_id).order("count_id DESC").limit(1).count(:id)
+  def self.find_min_or_max(column)
+    group("#{column}")
+    .order("count_id")
+    .count(:id)
   end
 
-  def least_ridden_bike_with_total_number_of_rides
-    Trip.group(:bike_id).order("count_id ASC").limit(1).count(:id)
+  def self.bike_analytics
+    find_min_or_max("bike_id")
   end
 
-  def subscription_breakdown
-    Trip.group(:subscription_type).count
+  def self.subscription_breakdown
+    group(:subscription_type)
+    .count
   end
 
-  def customer_percentage
+  def self.find_user_count_for_subscription_type(customer_or_subscriber)
+    if customer_or_subscriber == "customer"
+      subscription_breakdown.values.first
+    else
+      subscription_breakdown.values.last
+    end
+  end
+
+  def self.calculate_percentage(customer_or_subscriber)
+    user_count = find_user_count_for_subscription_type(customer_or_subscriber)
     total = Trip.count
-    customer = Trip.group(:subscription_type).count.values.first
-    (customer.to_f / total * 100).round
+    (user_count.to_f / total * 100).round
+  end
+  #
+  def self.date_analytics
+    find_min_or_max("end_date")
   end
 
-  def subscriber_percentage
-    total = Trip.count
-    subscriber = Trip.group(:subscription_type).count.values.last
-    (subscriber.to_f / total * 100).round
-  end
-
-  def date_with_most_trips
-    Trip.group(:end_date).order("count_id DESC").limit(1).count(:id)
-  end
-
-  def date_with_least_trips
-    Trip.group(:end_date).order("count_id ASC").limit(1).count(:id)
-  end
-
-  def display_date(date)
+  def self.display_date(date)
     date.strftime("%m/%d/%Y")
+  end
+
+  def self.condition_with_most_or_least_trips(asc_or_desc)
+    condition_id = joins(:condition)
+      .group("condition_id")
+      .order("count_id #{asc_or_desc}")
+      .count(:id)
+      .first
+
+    Condition.find(condition_id.first)
   end
 
 end
