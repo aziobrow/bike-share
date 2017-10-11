@@ -2,11 +2,9 @@ require 'will_paginate'
 require 'will_paginate/active_record'
 
 class BikeShareApp < Sinatra::Base
-  configure do
-    set :root, File.expand_path("..", __dir__)
-    set :method_override, true
-    register WillPaginate::Sinatra
-  end
+  set :root, File.expand_path("..", __dir__)
+  set :method_override, true
+  register WillPaginate::Sinatra
 
   get "/" do
     erb :dashboard
