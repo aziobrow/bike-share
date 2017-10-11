@@ -1,5 +1,13 @@
 class Condition < ActiveRecord::Base
   has_many :trips
+  validates :date, presence: true
+  validates :max_temperature, presence: true
+  validates :mean_temperature, presence: true
+  validates :min_temperature, presence: true
+  validates :mean_humidity, presence: true
+  validates :mean_visibility, presence: true
+  validates :mean_wind_speed, presence: true
+  validates :precipitation, presence: true
 
   def self.find_condition_id(date)
     date = Date.strptime(date, "%m/%d/%Y")
