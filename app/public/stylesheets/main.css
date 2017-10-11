@@ -64,8 +64,6 @@ article.index-item {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 4px 4px 4px 4px;
-  padding: 5px;
   flex-wrap: wrap;
 }
 
@@ -77,7 +75,15 @@ article.index-item h3 {
 .index-item * {
   padding: 0 0 0 0;
   margin: 0 0 0 0;
-  align-content: center;
+}
+
+.index-item a {
+  text-align: center;
+}
+
+.paginate {
+  display: flex;
+  align-items: flex-end;
 }
 
 img.main-img {
