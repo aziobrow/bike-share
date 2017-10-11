@@ -1,20 +1,22 @@
-<form action="/trips" method="post">
-  <p>Enter a new trip:</p>
-  <label>Duration:</label>
-  <input type='hidden' name='trip[duration]' value="trip.calculate_duration"/><br/><br/>
-  <label>Start Date:</label>
-  <input type='text' name='trip[start_date]'/><br/><br/>
-  <label>Start Station ID:</label>
-  <input type='text' name='trip[start_station_id]'/><br/><br/>
-  <label>End Date:</label>
-  <input type='text' name='trip[end_date]'/><br/><br/>
-  <label>End Station ID:</label>
-  <input type='text' name='trip[end_station_id]'/><br/><br/>
-  <label>Bike ID:</label>
-  <input type='text' name='trip[bike_id]'/><br/><br/>
-  <label>Subscription Type:</label>
-  <input type='text' name='trip[subscription_type]'/><br/><br/>
-  <label>Zip Code:</label>
-  <input type='text' name='trip[zip_code]'/><br/><br/>
-  <input type='submit' value='Create Trip'/>
-</form>
+<main class="new-form">
+  <form action="/trips" method="post">
+    <h1 class="title">create a new trip</h1>
+    <label>Duration:</label>
+    <input type='hidden' name='trip[duration]' value="trip.calculate_duration"/><br/><br/>
+    <label>Start Date:</label>
+    <input type='text' name='trip[start_date]'/><br/><br/>
+    <label>Start Station ID:</label>
+    <input type='text' name='trip[start_station_id]'/><br/><br/>
+    <label>End Date:</label>
+    <input type='text' name='trip[end_date]'/><br/><br/>
+    <label>End Station ID:</label>
+    <input type='text' name='trip[end_station_id]'/><br/><br/>
+    <label>Bike ID:</label>
+    <input type='text' name='trip[bike_id]'/><br/><br/>
+    <label>Subscription Type:</label>
+    <input type='text' name='trip[subscription_type]'/><br/><br/>
+    <label>Zip Code:</label>
+    <input type='text' name='trip[zip_code]'/><br/><br/>
+    <input type='submit' value='Create Trip'/>
+  </form>
+</main>
