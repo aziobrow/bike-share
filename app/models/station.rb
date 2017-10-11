@@ -61,23 +61,12 @@ class Station < ActiveRecord::Base
       .name
   end
 
-  def date_with_most_trips
+  def most_frequent_x_starting_here(column)
     started_trips
-      .order("start_date")
+      .group("#{column}")
+      .count
+      .keys
       .first
-      .start_date
-  end
-
-  # def date_with_most_trips
-  #   Trip.where(start_station_id: self.station_id).group(:start_date).order("count_id DESC").limit(1).count(:id).keys.first
-  # end
-
-  def most_frequent_starting_zip_code
-    Trip.where(start_station_id: self.station_id).group(:zip_code).order("count_id DESC").limit(1).count(:id).keys.first
-  end
-
-  def most_frequent_starting_bike
-    Trip.where(start_station_id: self.station_id).group(:bike_id).order("count_id DESC").limit(1).count(:id).keys.first
   end
 
 end
