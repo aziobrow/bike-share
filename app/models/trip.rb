@@ -18,8 +18,6 @@ class Trip < ActiveRecord::Base
     station.name
   end
 
-
-  #I don't think we're using this?
   def calculate_duration
     if self.duration
       self.duration / 60
