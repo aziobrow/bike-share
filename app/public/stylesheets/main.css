@@ -101,3 +101,26 @@ img.main-img {
 section {
   margin-top: 100px;
 }
+
+.selection {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.new-select {
+  width: 25%;
+  height: 40%;
+  margin: 25px;
+  border: 2px solid;
+  border-radius: 10px;
+}
+
+.new-select * {
+  text-align: center;
+}
+
+.img-link {
+  width: 300px;
+  height: auto;
+}
