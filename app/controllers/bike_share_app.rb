@@ -58,6 +58,8 @@ class BikeShareApp < Sinatra::Base
 
   get "/trips-dashboard" do
     @trips = Trip.all
+    @bike_analytics = Trip.bike_analytics
+    @date_analytics = Trip.date_analytics
     erb :'/trips/dashboard'
   end
 

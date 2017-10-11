@@ -77,24 +77,14 @@ class Trip < ActiveRecord::Base
     rides_per_month
   end
 
-  def self.find_min_or_max(column, asc_or_desc)
+  def self.find_min_or_max(column)
     group("#{column}")
-    .order("count_id #{asc_or_desc}")
-    .limit(1)
+    .order("count_id")
     .count(:id)
   end
 
-  def self.bike_analytics(asc_or_desc)
-    find_min_or_max("bike_id", asc_or_desc)
-  end
-
-#would like to call the .keys or .values logic in controller to minimize database calls--is that a good idea?
-  def self.most_or_least_ridden_bike_id(asc_or_desc)
-    bike_analytics(asc_or_desc).keys.first
-  end
-
-  def self.most_or_least_ridden_bike_count(asc_or_desc)
-    bike_analytics(asc_or_desc).values.first
+  def self.bike_analytics
+    find_min_or_max("bike_id")
   end
 
   def self.subscription_breakdown
@@ -115,9 +105,9 @@ class Trip < ActiveRecord::Base
     total = Trip.count
     (user_count.to_f / total * 100).round
   end
-
-  def self.date_with_most_or_least_trips(asc_or_desc)
-    find_min_or_max("end_date", asc_or_desc)
+  #
+  def self.date_analytics
+    find_min_or_max("end_date")
   end
 
   def self.display_date(date)

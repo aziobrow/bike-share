@@ -21,11 +21,11 @@
   <p>Rides Per Month: <% @trips.first.display_monthly_rides.each do |month, month_rides|  %>
     <%= month%>:<%=month_rides%>
     <%end%></p>
-  <p>Most Ridden Bike: <%= @trips.most_or_least_ridden_bike_id("DESC") %> Number of Rides: <%= @trips.most_or_least_ridden_bike_count("DESC") %></p>
-  <p>Least Ridden Bike: <%= @trips.most_or_least_ridden_bike_id("ASC") %> Number of Rides: <%= @trips.most_or_least_ridden_bike_count("ASC") %></p>
+  <p>Most Ridden Bike: <%= @bike_analytics.keys.last %> Number of Rides: <%= @bike_analytics.values.last %></p>
+  <p>Least Ridden Bike: <%= @bike_analytics.keys.first %> Number of Rides: <%= @bike_analytics.values.first %></p>
   <p>Users Subscribed: <%= @trips.subscription_breakdown.values.last %> Percentage: <%= @trips.calculate_percentage("subscriber") %>%</p>
   <p>Users Not Subscribed: <%= @trips.subscription_breakdown.values.first %> Percentage: <%= @trips.calculate_percentage("customer") %>%</p>
-  <p>Date With Most Trips:  <%= @trips.date_with_most_or_least_trips("DESC")%> Number of Trips: <%= @trips.date_with_most_or_least_trips("DESC").values.first %></p>
-  <p>Date With Least Trips:  <%=@trips.date_with_most_or_least_trips("ASC").keys.first %> Number of Trips: <%= @trips.date_with_most_or_least_trips("ASC").values.first %></p>
+  <p>Date With Most Trips:  <%= @date_analytics.keys.last%> Number of Trips: <%= @date_analytics.values.last %></p>
+  <p>Date With Least Trips:  <%=@date_analytics.keys.first %> Number of Trips: <%= @date_analytics.values.first %></p>
   <p>add thing for weather on the day with most and least trips</p>
 </body>
