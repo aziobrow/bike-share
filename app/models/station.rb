@@ -69,4 +69,5 @@ class Station < ActiveRecord::Base
       .first
   end
 
+
 end

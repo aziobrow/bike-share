@@ -12,22 +12,22 @@ class Trip < ActiveRecord::Base
   validates :subscription_type, presence: true
 
   def starting_station_name
-    station = Station.find(self.start_station_id)
-    station.name
+    start_station
+    .name
   end
 
   def ending_station_name
-    station = Station.find(self.end_station_id)
-    station.name
+    end_station
+    .name
   end
-
-  def calculate_duration
-    if self.duration
-      self.duration / 60
-    else
-      self.end_date - self.start_date / 60
-    end
-  end
+  #
+  # def calculate_duration
+  #   if self.duration
+  #     self.duration / 60
+  #   else
+  #     self.end_date - self.start_date / 60
+  #   end
+  # end
 
   def self.average_duration_of_a_ride
     average(:duration)
@@ -42,9 +42,14 @@ class Trip < ActiveRecord::Base
     minimum(:duration)
   end
 
-  def most_frequent_starting_station
-    start_station_max = Trip.group(:start_station_id).order("count_id DESC").limit(1).count(:id)
-    Station.find(start_station_max.keys.first).name
+  def self.most_frequent_starting_station
+    id = group(:start_station_id)
+    .order("count_id DESC")
+    .count(:id)
+
+    find_by(original_station_id: id.keys.first)
+      .start_station
+      .name
   end
 
   def most_frequent_ending_station
