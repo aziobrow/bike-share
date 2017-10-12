@@ -126,7 +126,6 @@ class Condition < ActiveRecord::Base
   def self.collect_descriptors_for_each_ten_degree_temp_range
     range_floor = find_lowest_max_temp
     range_ceiling = find_highest_max_temp
-    require "pry"; binding.pry
     collect_descriptors_for_range(range_floor, range_ceiling, "max_temperature", 10)
   end
 
