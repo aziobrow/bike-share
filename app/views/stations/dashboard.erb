@@ -14,7 +14,6 @@
         <li><%= station.name %></li>
       </ul>
    <% end %>
-   <p>Newest Station: <%= @stations.most_recently_installed_station.name %></p>
-   <p>Oldest Station: <%= @stations.oldest_station.name %></p>
+   <p>Newest Station: <%= @stations.ordered_by_installation_date("DESC") %></p>
+   <p>Oldest Station: <%= @stations.ordered_by_installation_date("ASC") %></p>
 </main>
-

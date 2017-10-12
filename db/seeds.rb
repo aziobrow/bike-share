@@ -9,10 +9,10 @@ stations = (CSV.open'db/csv/station.csv', headers: true, header_converters: :sym
 
 stations.each do |station|
   Station.create!(name:             station[:name],
-                 dock_count:        station[:dock_count].to_i,
+                 dock_count:        station[:dock_count],
                  installation_date: Date.strptime(station[:installation_date], "%m/%d/%Y"),
                  city:              station[:city],
-                 station_id:        station[:id])
+                 original_station_id:        station[:id])
 end
 
 conditions = (CSV.open'db/csv/weather.csv', headers: true, header_converters: :symbol)
@@ -20,13 +20,13 @@ conditions = (CSV.open'db/csv/weather.csv', headers: true, header_converters: :s
 conditions.each do |condition|
   if condition[:zip_code] == "94107"
     Condition.create!(date:              Date.strptime(condition[:date], "%m/%d/%Y"),
-                max_temperature:         condition[:max_temperature_f].to_i,
-                mean_temperature:        condition[:mean_temperature_f].to_i,
-                min_temperature:         condition[:min_temperature_f].to_i,
-                mean_humidity:           condition[:mean_humidity].to_i,
-                mean_visibility:         condition[:mean_visibility_miles].to_i,
-                mean_wind_speed:         condition[:mean_wind_speed_mph].to_i,
-                precipitation:           condition[:precipitation_inches].to_f)
+                max_temperature:         condition[:max_temperature_f],
+                mean_temperature:        condition[:mean_temperature_f],
+                min_temperature:         condition[:min_temperature_f],
+                mean_humidity:           condition[:mean_humidity],
+                mean_visibility:         condition[:mean_visibility_miles],
+                mean_wind_speed:         condition[:mean_wind_speed_mph],
+                precipitation:           condition[:precipitation_inches])
   end
 end
 
@@ -37,13 +37,14 @@ trips.each do |trip|
   puts "Trip #{count} seeded"
   count += 1
 
-  Trip.create!(duration:               trip[:duration],
+  Trip.create!(duration:               trip[:duration].to_i / 60,
               start_date:              Date.strptime(trip[:start_date], "%m/%d/%Y"),
-              start_station_id:        trip[:start_station_id].to_i,
+              start_station_id:        trip[:start_station_id],
               end_date:                Date.strptime(trip[:end_date], "%m/%d/%Y"),
-              end_station_id:          trip[:end_station_id].to_i,
-              bike_id:                 trip[:bike_id].to_i,
+              end_station_id:          trip[:end_station_id],
+              bike_id:                 trip[:bike_id],
               subscription_type:       trip[:subscription_type],
               zip_code:                trip[:zip_code],
-              condition_id:            Condition.find_condition_id(trip[:start_date]))
+              condition_id:            Condition.find_condition_id(trip[:start_date]),
+              original_station_id:     trip[:start_station_id])
 end
