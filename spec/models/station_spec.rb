@@ -63,12 +63,9 @@ RSpec.describe Station do
       expect(Station.station_with_min_bikes.first.name).to eq("Ralph")
     end
 
-    it '.most_recently_installed_station' do
-      expect(Station.most_recently_installed_station.name).to eq("Ralph")
-    end
-
-    it '.oldest_station' do
-      expect(Station.oldest_station.name).to eq("Humberto")
+    it '.ordered_by_installation_date' do
+      expect(Station.ordered_by_installation_date("ASC")).to eq("Humberto")
+      expect(Station.ordered_by_installation_date("DESC")).to eq("Ralph")
     end
   end
 
@@ -76,10 +73,10 @@ RSpec.describe Station do
     before :each do
       date_1 = DateTime.now
       date_2 = DateTime.new(2017,4,5,6)
-      @station_1 = Station.create(installation_date: date_2, dock_count: 4, name: 'Ralph', city: 'Place', station_id: 1)
-      @station_2 = Station.create(installation_date: date_2, dock_count: 10, name: 'Humberto', city: 'Different Place', station_id: 2)
-      @trip_1 = Trip.create(duration: 20, start_date: date_2, start_station_id: @station_1.station_id, end_date: date_1, end_station_id: @station_2.station_id, bike_id: 3, subscription_type: 'Subscriber', zip_code: '12345')
-      @trip_2 = Trip.create(duration: 10, start_date: date_2, start_station_id: @station_1.station_id, end_date: date_1, end_station_id: @station_2.station_id, bike_id: 3, subscription_type: 'Subscriber', zip_code: '12345')
+      @station_1 = Station.create(installation_date: date_2, dock_count: 4, name: 'Ralph', city: 'Place', original_station_id: 1)
+      @station_2 = Station.create(installation_date: date_2, dock_count: 10, name: 'Humberto', city: 'Different Place', original_station_id: 2)
+      @trip_1 = Trip.create(duration: 20, start_date: date_2, start_station_id: @station_1.original_station_id, end_date: date_1, end_station_id: @station_2.original_station_id, bike_id: 3, subscription_type: 'Subscriber', zip_code: '12345', original_station_id: 1)
+      @trip_2 = Trip.create(duration: 10, start_date: date_2, start_station_id: @station_1.original_station_id, end_date: date_1, end_station_id: @station_2.original_station_id, bike_id: 3, subscription_type: 'Subscriber', zip_code: '12345', original_station_id: 1)
       @condition_1 = Condition.create(date: date_1, max_temperature: 100, mean_temperature: 50, min_temperature: 0, mean_humidity: 50, mean_visibility: 10, mean_wind_speed: 11, precipitation: 0.2)
       @condition_2 = Condition.create(date: date_2, max_temperature: 60, mean_temperature: 40, min_temperature: 20, mean_humidity: 25, mean_visibility: 5, mean_wind_speed: 6, precipitation: 0.4)
     end
@@ -95,28 +92,17 @@ RSpec.describe Station do
     end
 
     it '#most_frequent_destination' do
-      expect(@station_2.most_frequent_destination).to eq("No trips are associated with this station.")
       expect(@station_1.most_frequent_destination).to eq("Humberto")
     end
 
     it '#most_frequent_origin' do
-      expect(@station_2.most_frequent_origin).to eq("Ralph")
-      expect(@station_1.most_frequent_origin).to eq("No trips are associated with this station.")
+      expect(@station_1.most_frequent_origin).to eq("Humberto")
     end
 
-    it '#date_with_most_trips' do
-      expect(@station_1.date_with_most_trips).to eq(Date.new(2017,4,5,6))
-      expect(@station_2.date_with_most_trips).to eq(nil)
-    end
-
-    it '#most_frequent_starting_zip_code' do
-      expect(@station_1.most_frequent_starting_zip_code).to eq("12345")
-      expect(@station_2.most_frequent_starting_zip_code).to eq(nil)
-    end
-
-    it '#most_frequent_starting_bike' do
-      expect(@station_1.most_frequent_starting_bike).to eq(3)
-      expect(@station_2.most_frequent_starting_bike).to eq(nil)
+    it '#most_frequent_x_starting_here' do
+      expect(@station_1.most_frequent_x_starting_here(:bike_id)).to eq(3)
+      expect(@station_1.most_frequent_x_starting_here(:start_date)).to eq(Date.new(2017,4,5,6))
+      expect(@station_1.most_frequent_x_starting_here(:zip_code)).to eq("12345")
     end
   end
 end

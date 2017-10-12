@@ -149,7 +149,10 @@ class Condition < ActiveRecord::Base
   end
 
   def self.find_condition_with_most_or_least_trips(asc_or_desc)
-    retrieve_trip_count_from_join_query(asc_or_desc)
+      joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.id")
+      .group("conditions.id")
+      .order("trip_count #{asc_or_desc}")
       .first
   end
 

@@ -68,7 +68,6 @@ class BikeShareApp < Sinatra::Base
     @trips = Trip.all
     @condition_with_most_rides = Condition.find_condition_with_most_or_least_trips("DESC")
     @condition_with_least_rides = Condition.find_condition_with_most_or_least_trips("ASC")
-    require "pry"; binding.pry
     erb :'/trips/dashboard'
   end
 

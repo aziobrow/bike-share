@@ -98,15 +98,15 @@ RSpec.describe Condition do
     end
 
     it '.collect_max_temp_ranges' do
-      expect(Condition.collect_max_temp_ranges).to eq(["60 - 69: ", "70 - 79: ", "80 - 89: ", "90 - 99: ", "100 - 109: "])
+      expect(Condition.collect_max_temp_ranges).to eq(["60 - 69: ", "70 - 79: ", "80 - 89: ", "90 - 99: "])
     end
 
     it '.collect_max_precipitation_ranges' do
-      expect(Condition.collect_max_precipitation_ranges).to eq(["0 - 0.49: ", "0.5 - 0.99: "])
+      expect(Condition.collect_max_precipitation_ranges).to eq(["0 - 0.49: "])
     end
 
     it '.collect_max_visibility_range' do
-      expect(Condition.collect_max_visbility_range).to eq(["0 - 3.99: ", "4 - 7.99: ", "8 - 11.99: "])
+      expect(Condition.collect_max_visibility_range).to eq(["0 - 3.99: ", "4 - 7.99: ", "8 - 11.99: "])
     end
 
     it '.collect_max_wind_speed_range' do
@@ -122,11 +122,11 @@ RSpec.describe Condition do
     end
 
     it '.collect_descriptors_for_range' do
-      expect(Condition.collect_descriptors_for_range(0, 100, :mean_temperature, 10)).to eq([[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [1, 2, 2], [2, 2, 2], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]])
+      expect(Condition.collect_descriptors_for_range(0, 100, :mean_temperature, 10)).to eq( [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 2, 2], [0, 2, 2], [2, 2, 2], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]])
     end
 
     it '.collect_descriptors_for_each_ten_degree_temp_range' do
-      expect(Condition.collect_descriptors_for_each_ten_degree_temp_range).to eq([[0, 0, 0], [0, 0, 0], [0, 0, 0], [2, 2, 2], [2, 2, 2]])
+      expect(Condition.collect_descriptors_for_each_ten_degree_temp_range).to eq([[0, 2, 2], [0, 0, 0], [0, 0, 0], [0, 2, 2], [2, 2, 2]])
     end
 
     it '.collect_descriptors_for_each_precipitation_range' do
@@ -134,19 +134,19 @@ RSpec.describe Condition do
     end
 
     it '.collect_descriptors_for_each_mean_wind_speed_range' do
-      expect(Condition.collect_descriptors_for_each_mean_wind_speed_range).to eq([[0, 0, 0], [0, 0, 0], [2, 2, 2]])
+      expect(Condition.collect_descriptors_for_each_mean_wind_speed_range).to eq([[0, 0, 0], [0, 2, 2], [2, 2, 2]])
     end
 
     it '.collect_descriptors_for_each_mean_visibility_range' do
-      expect(Condition.collect_descriptors_for_each_mean_visibility_range).to eq([[0, 0, 0], [0, 0, 0], [2, 2, 2]])
+      expect(Condition.collect_descriptors_for_each_mean_visibility_range).to eq([[0, 0, 0], [0, 2, 2], [2, 2, 2]])
     end
 
     it '.find_condition_with_most_trips' do
-      expect(Condition.find_condition_with_most_trips).to eq(Condition.first)
+      expect(Condition.find_condition_with_most_or_least_trips("DESC")).to eq(Condition.first)
     end
 
     it '.find_condition_with_least_trips' do
-      expect(Condition.find_condition_with_least_trips).to eq(Condition.first)
+      expect(Condition.find_condition_with_most_or_least_trips("ASC")).to eq(Condition.first)
     end
   end
 end

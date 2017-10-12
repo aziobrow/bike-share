@@ -80,7 +80,7 @@ class Trip < ActiveRecord::Base
       .values
       .first
   end
-  #
+
   # def self.bike_analytics
   #   find_min_or_max("bike_id", "DESC")
   # end
