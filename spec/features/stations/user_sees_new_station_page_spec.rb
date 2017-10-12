@@ -4,7 +4,7 @@ describe "when a user visits the new station form page" do
 
     visit "/stations/new"
 
-    expect(page).to have_content("Enter a new station:")
+    expect(page).to have_content("create a new station")
     expect(page).to have_content("Name:")
     expect(page).to have_content("Number of Docks:")
     expect(page).to have_content("City:")

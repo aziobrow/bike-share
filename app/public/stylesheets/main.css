@@ -1,7 +1,6 @@
 body {
   padding: 0 0 0 0;
   margin: 30px 0 0 0;
-
 }
 
 main {
@@ -48,7 +47,7 @@ li a:hover {
 }
 
 .title {
-  margin-top: 8px;
+  margin-top: 45px;
   margin-bottom: 12px;
 }
 
@@ -60,6 +59,7 @@ li a:hover {
   margin: 18px 18px 18px 18px;
   float: left;
 }
+
 article.index-item {
   display: flex;
   height: 200px;
@@ -88,12 +88,55 @@ article.index-item h3 {
 
 img.main-img {
   display: block;
-  opacity: 0.4;
-  width: 40%;
+  opacity: 0.9;
+  width: 50%;
   height: auto;
   margin: auto;
 }
 
 .dashboard {
   width: 80%;
+}
+
+section {
+  margin-top: 100px;
+}
+
+.selection {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.new-select {
+  width: 300px;
+  height: 300px;
+  margin: 25px;
+  border: 2px solid;
+  border-radius: 10px;
+}
+
+.new-select * {
+  text-align: center;
+}
+
+.img-link {
+  width: 300px;
+  height: auto;
+}
+
+
+@media (max-width: 1000px) {
+  .title{
+    margin-top: 105px;
+  }
+
+
+}
+
+@media (max-width: 550px) {
+  .title{
+    margin-top: 130px;
+  }
 }

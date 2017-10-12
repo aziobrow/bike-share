@@ -1,5 +1,3 @@
-<a href='/stations'>Back to All Stations</a>
-
 <main class="show">
   <h1 class="title"><%=@station.name%></h1>
       <p>Dock Count: <%= @station.dock_count%></p>
@@ -18,4 +16,5 @@
   <form action="/stations/<%= @station.id %>" method="POST">
     <input type="submit" name="_method" value="Delete" />
   </form>
+  <a href='/stations'>Back to All Stations</a>
 </main>

@@ -1,4 +1,3 @@
-<a href='/conditions'>Back to All Trip Conditions</a>
 <main class="show">
   <h1 class="title">weather conditions for <%=@condition.date%></h1>
     <p>High Temperature: <%= @condition.max_temperature%></p>
@@ -14,4 +13,5 @@
   <form action="/conditions/<%= @condition.id %>" method="POST">
     <input type="submit" name="_method" value="Delete" />
   </form>
+  <a href='/conditions'>Back to All Trip Conditions</a>
 </main>

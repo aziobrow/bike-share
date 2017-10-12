@@ -8,10 +8,10 @@ describe "when a user visits a station's edit page" do
   it "renders an edit form" do
     visit "/stations/#{@station.id}/edit"
 
-    expect(page).to have_content("Enter New Installation Date")
-    expect(page).to have_content("Enter New Dock Count:")
-    expect(page).to have_content("Enter New City:")
-    expect(page).to have_content("Enter New Station Name:")
+    expect(page).to have_content("Installation Date")
+    expect(page).to have_content("Dock Count:")
+    expect(page).to have_content("City:")
+    expect(page).to have_content("Station Name:")
   end
 
   it "renders the current values of the station in the textareas" do
