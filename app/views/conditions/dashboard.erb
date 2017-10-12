@@ -29,7 +29,7 @@
     <%end%>
 
   <h2>Breakdown of Trips Taken by 4 miles of Visibility</h2>
-    <%@conditions.collect_max_visbility_range.each.with_index do |range, index|%><h4>Range: <%=range%> miles</h4>
+    <%@conditions.collect_max_visibility_range.each.with_index do |range, index|%><h4>Range: <%=range%> miles</h4>
     <ul>
       <li>Average Rides: <%=@condition_visibility_data[index][0]%></li>
       <li>Maximum Rides: <%=@condition_visibility_data[index][1]%></li>

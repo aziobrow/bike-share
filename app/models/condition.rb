@@ -150,7 +150,7 @@ class Condition < ActiveRecord::Base
 
   def self.find_condition_with_most_or_least_trips(asc_or_desc)
       joins(:trips)
-      .select("count(trips.id) AS trip_count, conditions.id")
+      .select("count(trips.id) AS trip_count, conditions.*")
       .group("conditions.id")
       .order("trip_count #{asc_or_desc}")
       .first
