@@ -57,8 +57,9 @@ class Trip < ActiveRecord::Base
       .count
   end
 
+#not sure how or if this is being used yet
   def self.display_monthly_rides(year_value)
-    where('extract(year from start_date) = ?', year)
+    where('extract(year from start_date) = ?', year_value)
       time_period_with_rides("month", "%B")
   end
 
@@ -71,6 +72,12 @@ class Trip < ActiveRecord::Base
   def self.find_min_or_max_id(column, asc_or_desc)
     find_min_or_max(column, asc_or_desc)
       .keys
+      .first
+  end
+
+  def self.find_min_or_max_count(column, asc_or_desc)
+    find_min_or_max(column, asc_or_desc)
+      .values
       .first
   end
   #
@@ -117,12 +124,12 @@ class Trip < ActiveRecord::Base
 
     # Condition.find(condition_id.first)
 
-  def self.condition_with_most_or_least_trips(asc_or_desc)
-    condition_id = joins(:condition)
-      find_min_or_max("condition_id", asc_or_desc)
-
-    find_by(condition_id: condition_id)
-      .condition
-  end
+  # def self.condition_with_most_or_least_trips(asc_or_desc)
+  #   condition_id = joins(:condition)
+  #     find_min_or_max("condition_id", asc_or_desc)
+  #
+  #   find_by(condition_id: condition_id)
+  #     .condition
+  # end
 
 end

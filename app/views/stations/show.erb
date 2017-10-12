@@ -9,9 +9,9 @@
       <p>Number of Rides Ended Here: <%= @station.count_rides_ended_at_station %></p>
       <p>Most Frequent Destination Station: <%= @station.most_frequent_destination %></p>
       <p>Most Frequent Starting Station: <%= @station.most_frequent_origin %></p>
-      <p>Date with Most Trips Started Here: <%= @station.date_with_most_trips %></p>
-      <p>Most Frequent User Zip Code for this Station: <%= @station.most_frequent_starting_zip_code %></p>
-      <p>Most Popular Bike ID Starting Here: <%= @station.most_frequent_starting_bike %></p>
+      <p>Date with Most Trips Started Here: <%= @station.most_frequent_x_starting_here("start_date") %></p>
+      <p>Most Frequent User Zip Code for this Station: <%= @station.most_frequent_x_starting_here("zip_code") %></p>
+      <p>Most Popular Bike ID Starting Here: <%= @station.most_frequent_x_starting_here("bike_id") %></p>
   <form class="" action="/stations/<%= @station.id %>/edit" method="GET">
     <input type="submit" name="_method" value="Edit">
   </form>

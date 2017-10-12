@@ -43,21 +43,27 @@ class Station < ActiveRecord::Base
     .count
   end
 
-  def self.most_frequent_destination
-    joins(:ended_trips)
-      .select("count(trips.end_station_id) AS end_station_counts, stations.*")
-      .group("stations.id")
-      .order("end_station_counts DESC")
+  def most_frequent_destination
+    id = started_trips
+      .group("end_station_id")
+      .order("count_id DESC")
+      .count(:id)
+      .keys
       .first
+
+    Station.find_by(original_station_id: id)
       .name
   end
 
-  def self.most_frequent_origin_station
-    joins(:started_trips)
-      .select("count(trips.start_station_id) AS start_station_counts, stations.*")
-      .group("stations.id")
-      .order("start_station_counts DESC")
+  def most_frequent_origin
+    id = started_trips
+      .group("end_station_id")
+      .order("count_id DESC")
+      .count(:id)
+      .keys
       .first
+
+    Station.find_by(original_station_id: id)
       .name
   end
 

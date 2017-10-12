@@ -62,7 +62,7 @@ class Condition < ActiveRecord::Base
     collect_ranges(range_floor, range_ceiling, 0.49, 0.5)
   end
 
-  def self.collect_max_visbility_range
+  def self.collect_max_visibility_range
     range_floor = 0
     range_ceiling = find_max_visibility
     collect_ranges(range_floor, range_ceiling, 3.99, 4)
@@ -75,14 +75,14 @@ class Condition < ActiveRecord::Base
   end
 
   def self.find_trip_average_for_given_range(range_floor, column, increment)
-    total_trips = range_search(column, range_floor, increment)
-    .joins(:trips)
-    .count
+    total_trips =
+    where("? <= #{column} AND ? > #{column}", range_floor, range_floor + increment)
+      .joins(:trips)
+      .count
 
     return 0 if total_trips == 0
 
     number_of_conditions = range_search(column, range_floor, increment).count
-
     total_trips / number_of_conditions
   end
 
@@ -100,15 +100,24 @@ class Condition < ActiveRecord::Base
     end
   end
 
+  def self.retrieve_trip_count_from_join_query(asc_or_desc)
+    joins(:trips)
+      .select("count(trips.id) AS trip_count, conditions.id")
+      .group("conditions.id")
+      .order("trip_count #{asc_or_desc}")
+  end
+
   def self.conditions_from_join_query_for_trips_by_range(range_floor, column, increment, asc_or_desc)
     conditions_in_range =
-    range_search("#{column}", range_floor, increment)
-    .joins(:trips)
+    where("? <= #{column} AND ? >= #{column}", range_floor, range_floor + increment)
+
+    check_for_no_conditions_in_range(conditions_in_range)
+
+    conditions_in_range
+    joins(:trips)
     .select("count(trips.id) AS trip_count, conditions.id")
     .group("conditions.id")
     .order("trip_count #{asc_or_desc}")
-
-    check_for_no_conditions_in_range(conditions_in_range)
   end
 
   def self.collect_descriptors_for_range(range_floor, range_ceiling, column, increment)
@@ -149,19 +158,8 @@ class Condition < ActiveRecord::Base
     collect_descriptors_for_range(range_floor, range_ceiling, "mean_visibility", 4)
   end
 
-  def self.find_condition_with_most_trips
-    joins(:trips)
-      .select("count(trips.id) AS trip_count, conditions.*")
-      .group("conditions.id")
-      .order("trip_count DESC")
-      .first
-  end
-
-  def self.find_condition_with_least_trips
-    joins(:trips)
-      .select("count(trips.id) AS trip_count, conditions.*")
-      .group("conditions.id")
-      .order("trip_count")
+  def self.find_condition_with_most_or_least_trips(asc_or_desc)
+    retrieve_trip_count_from_join_query(asc_or_desc)
       .first
   end
 
