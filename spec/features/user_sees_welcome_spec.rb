@@ -12,4 +12,7 @@ RSpec.describe "When a user visits the homepage" do
     expect(page).to have_content('weather dashboard')
     expect(page).to have_content('add a new...')
   end
+  
+  it "i am a test" do
+  end
 end

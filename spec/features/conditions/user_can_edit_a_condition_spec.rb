@@ -11,6 +11,20 @@ describe "User visits condition edit page" do
     @condition_2 = Condition.create(date: date2, max_temperature: 60, mean_temperature: 40, min_temperature: 20, mean_humidity: 25, mean_visibility: 5, mean_wind_speed: 6, precipitation: 0.4)
   end
 
+  it "they see the edit condition form" do
+    visit "conditions/#{@condition_1.id}/edit"
+
+    expect(page).to have_content("change trip condition details")
+    expect(page).to have_content("Date:")
+    expect(page).to have_content("High Temperature:")
+    expect(page).to have_content("Mean Temperature:")
+    expect(page).to have_content("Low Temperature:")
+    expect(page).to have_content("Mean Humidity:")
+    expect(page).to have_content("Mean Visibility (in miles):")
+    expect(page).to have_content("Mean Wind Speed (in mph):")
+    expect(page).to have_content("Precipitation Total (in inches):")
+  end
+
   it "they can edit the condition" do
     visit "/conditions/#{@condition_1.id}/edit"
 
