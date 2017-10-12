@@ -3,20 +3,20 @@
   <p>Average Duration of Ride: <%= @trips.average_duration_of_a_ride %></p>
   <p>Longest Ride: <%= @trips.longest_ride %></p>
   <p>Shortest Ride: <%= @trips.shortest_ride %></p>
-  <p>Most Frequent Starting Station: <%= @trips.first.most_frequent_starting_station %></p>
-  <p>Most Frequent Ending Station: <%= @trips.first.most_frequent_ending_station %></p>
-  <p>Rides Per Year: <% @trips.first.number_of_rides_per_year.each do |year, year_rides|  %>
-    <%= year%>:<%=year_rides%>
-    <%end%></p>
-  <p>Rides Per Month: <% @trips.first.display_monthly_rides.each do |month, month_rides|  %>
-    <%= month%>:<%=month_rides%>
-    <%end%></p>
-  <p>Most Ridden Bike: <%= @bike_analytics.keys.last %> Number of Rides: <%= @bike_analytics.values.last %></p>
-  <p>Least Ridden Bike: <%= @bike_analytics.keys.first %> Number of Rides: <%= @bike_analytics.values.first %></p>
-  <p>Users Subscribed: <%= @trips.subscription_breakdown.values.last %> Percentage: <%= @trips.calculate_percentage("subscriber") %>%</p>
-  <p>Users Not Subscribed: <%= @trips.subscription_breakdown.values.first %> Percentage: <%= @trips.calculate_percentage("customer") %>%</p>
-  <p>Date With Most Trips:  <%= @date_analytics.keys.last%> Number of Trips: <%= @date_analytics.values.last %></p>
-  <p>Date With Least Trips:  <%=@date_analytics.keys.first %> Number of Trips: <%= @date_analytics.values.first %></p>
+  <p>Most Frequent Starting Station: <%= @trips.most_frequent_station("start_station_id", "DESC") %></p>
+  <p>Most Frequent Ending Station: <%= @trips.most_frequent_station("end_station_id", "DESC") %></p>
+  <p>Rides Per Year: <% @trips.time_period_with_rides("year", "%Y").each do |year|  %>
+    <%= year %>: <%= @trips.number_of_rides_per_time_period("year", year)%>
+      <% @trips.time_period_with_rides("month", "%m").each do |month| %>
+        <%= month %>: <%= @trips.number_of_rides_per_time_period("month", month) %>
+      <% end %>
+    <% end %></p>
+  <p>Most Ridden Bike: <%= @trips.find_min_or_max_id("bike_id", "DESC") %> Number of Rides: <%= @trips.find_min_or_max("bike_id", "DESC")%></p>
+  <p>Least Ridden Bike: <%= @trips.find_min_or_max_id("bike_id", "ASC") %> Number of Rides: <%= @trips.find_min_or_max("bike_id", "ASC") %></p>
+  <p>Users Subscribed: <%= @trips.find_user_count_for_subscription_type("subscriber") %> Percentage: <%= @trips.calculate_percentage("subscriber") %>%</p>
+  <p>Users Not Subscribed: <%= @trips.find_user_count_for_subscription_type("customer")%> Percentage: <%= @trips.calculate_percentage("customer") %>%</p>
+  <p>Date With Most Trips:  <%= @trips.find_min_or_max_id("start_date", "DESC")%> Number of Trips: <%= @trips.find_min_or_max_count("start_date", "DESC") %></p>
+  <p>Date With Least Trips:  <%= @trips.find_min_or_max_id("start_date", "ASC") %> Number of Trips: <%= @trips.find_min_or_max_count("start_date", "ASC") %></p>
 
   <h5> Weather Conditions for Day with Most Rides</h5>
   <ul>
